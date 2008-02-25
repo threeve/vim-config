@@ -11,7 +11,6 @@ nohl " ...but turn it off immediately, in case reloading.
 " buffer control
 set switchbuf=usetab
 
-
 set ruler " show line/col position
 set scrolloff=3 " show 3 lines of context when scrolling
 set backspace=2 " backspace crosses newlines?
@@ -26,6 +25,8 @@ set hidden " allow hidden buffers, rather than closing
 set wildchar=<TAB>
 set wildmenu
 set wildmode=longest:full,full " complete longest match, showing list, then cycle through full matches
+
+set completeopt=longest,menu,preview " happy completion style
 
 set autoindent
 set autoread " automatically reload files changed outside Vim
@@ -46,6 +47,12 @@ set number
 " key mappings
 noremap <silent> <ESC> :nohl<CR><ESC>
 
+if has("gui_macvim")
+	macmenukey File.Close
+	no <silent> <D-w> :bd<cr>
+	ino <silent> <D-w> <C-o>:bd<cr>
+endif
+
 autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highlighting (full)
 
 " TagList customizations
@@ -59,8 +66,8 @@ set updatetime=1000
 " TODO move this to .gvimrc ?
 set guioptions-=T " no toolbar
 if has("gui_running")
-	set guifont=DejaVu\ Sans\ Mono:h11
-	colorscheme blackdust
+	set guifont=Inconsolata:h11
+	colorscheme oceanblack
 else
 	colorscheme desert
 endif
