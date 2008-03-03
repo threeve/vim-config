@@ -59,12 +59,10 @@ set updatetime=1000
 " TODO move this to .gvimrc ?
 set guioptions-=T " no toolbar
 if has("gui_running")
-	set guifont=DejaVu\ Sans\ Mono:h11
-	colorscheme blackdust
-else
-	colorscheme desert
+	set guifont=Inconsolata:h12
+	colorscheme wombat
 endif
 
-set co=120 " 120 columns by default
+set co=135 " 135 columns by default
 set lines=999 " as many lines as will fit.
 
