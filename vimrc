@@ -74,6 +74,6 @@ if has("gui_running")
 	colorscheme wombat
 endif
 
-set co=135 " 135 columns by default
+set co=120 " 120 columns by default
 set lines=999 " as many lines as will fit.
 
