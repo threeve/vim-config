@@ -66,7 +66,11 @@ set updatetime=1000
 " TODO move this to .gvimrc ?
 set guioptions-=T " no toolbar
 if has("gui_running")
-	set guifont=Inconsolata:h11
+	if has("win32")
+		set guifont=Consolas:h10
+	else
+		set guifont=Inconsolata:h11
+	endif
 	colorscheme wombat
 endif
 
