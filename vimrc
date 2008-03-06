@@ -5,6 +5,7 @@ set nocp	" we use vim, not vi
 set incsearch
 set ignorecase
 set smartcase
+set infercase " better case handling for insert mode completion
 set hlsearch " turn on search match highlighting...
 nohl " ...but turn it off immediately, in case reloading.
 
@@ -16,10 +17,14 @@ set scrolloff=3 " show 3 lines of context when scrolling
 set backspace=2 " backspace crosses newlines?
 set whichwrap+=<>[]
 
-syntax on
+if has("syntax")
+	syntax on
+endif
+
 filetype on
 filetype plugin on
 filetype indent on
+
 set hidden " allow hidden buffers, rather than closing
 
 set wildchar=<TAB>
@@ -47,7 +52,7 @@ set number
 " key mappings
 noremap <silent> <ESC> :nohl<CR><ESC>
 
-if has("gui_macvim")
+if has("gui_running") && has("gui_macvim")
 	macmenukey File.Close
 	no <silent> <D-w> :bd<cr>
 	ino <silent> <D-w> <C-o>:bd<cr>
