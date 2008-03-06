@@ -54,6 +54,8 @@ if has("gui_macvim")
 endif
 
 autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highlighting (full)
+" setup git commits to use the git syntax highlighting
+autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 
 " TagList customizations
 let Tlist_Use_Right_Window=1
