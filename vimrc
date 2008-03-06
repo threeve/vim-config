@@ -60,6 +60,16 @@ set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
 
 set number
 
+" nicer looking tabs and whitespace
+if (&termencoding == "utf-8") || has("gui_running")
+	if v:version >= 700
+		set listchars=tab:»·,trail:·,extends:…,eol:$
+	else
+		set listchars=tab:»·,trail:·,extends:…,eol:$
+	endif
+endif
+
+
 " key mappings
 noremap <silent> <ESC> :nohl<CR><ESC>
 
