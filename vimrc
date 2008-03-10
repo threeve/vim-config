@@ -88,6 +88,7 @@ let Tlist_Use_Right_Window=1
 let Tlist_Enable_Fold_Column=1
 let Tlist_Show_One_File=1
 let Tlist_Compact_Format=1
+let Tlist_Process_File_Always=1
 set updatetime=1000
 
 " set GUI options (font, color, etc)
