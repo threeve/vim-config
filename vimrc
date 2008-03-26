@@ -1,4 +1,6 @@
 
+scriptencoding utf-8
+
 set nocp	" we use vim, not vi
 
 " use incremental, highlighting, smart case-insensitive search
@@ -101,8 +103,16 @@ if has("gui_running")
 		set guifont=Inconsolata:h11
 	endif
 	colorscheme wombat
+	set co=120 " 120 columns by default
+	set lines=999 " as many lines as will fit.
 endif
 
-set co=120 " 120 columns by default
-set lines=999 " as many lines as will fit.
+" A little bit (just a little) of Emacs stylee navigation.
+" Hard to un-learn these, and they work in lots of apps
+inoremap <silent> <C-a> <C-o>0
+inoremap <silent> <C-e> <C-o>$
+inoremap <silent> <C-k> <C-o>D
+nnoremap <silent> <C-a> 0
+nnoremap <silent> <C-e> $
+nnoremap <silent> <C-k> D
 
