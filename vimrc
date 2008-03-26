@@ -15,7 +15,7 @@ set switchbuf=usetab
 
 set ruler " show line/col position
 set scrolloff=3 " show 3 lines of context when scrolling
-set backspace=2 " backspace crosses newlines?
+set backspace=eol,start,indent " backspace crosses newlines?
 set whichwrap+=<>[]
 
 if has("syntax")
@@ -48,6 +48,7 @@ set cmdheight=2
 set laststatus=2
 set showcmd
 set showfulltag
+set shortmess+=ts
 " set statusline=[%l,%c\ %P%M]\ %f\ %r%h%w
 set statusline=
 set statusline+=%2*%-3.3n%0*\  " buffer number
