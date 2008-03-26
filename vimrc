@@ -108,6 +108,9 @@ if has("gui_running")
 	set lines=999 " as many lines as will fit.
 endif
 
+" tags config
+set tags=tags;/
+
 " A little bit (just a little) of Emacs stylee navigation.
 " Hard to un-learn these, and they work in lots of apps
 inoremap <silent> <C-a> <C-o>0
