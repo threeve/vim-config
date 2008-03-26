@@ -1,4 +1,3 @@
-
 scriptencoding utf-8
 
 set nocp	" we use vim, not vi
@@ -37,7 +36,7 @@ set completeopt=longest,menu,preview " happy completion style
 
 set autoindent
 set autoread " automatically reload files changed outside Vim
-" set autowrite " automatically write files when doing things like :make
+set autowrite " automatically write files when doing things like :make
 
 " use 4 space tabs and indents
 set tabstop=4
@@ -48,6 +47,7 @@ set smarttab " tabs to indent, spaces to align
 set cmdheight=2
 set laststatus=2
 set showcmd
+set showfulltag
 " set statusline=[%l,%c\ %P%M]\ %f\ %r%h%w
 set statusline=
 set statusline+=%2*%-3.3n%0*\  " buffer number
@@ -65,9 +65,9 @@ set number
 " nicer looking tabs and whitespace
 if (&termencoding == "utf-8") || has("gui_running")
 	if v:version >= 700
-		set listchars=tab:»·,trail:·,extends:…,eol:$
+		set listchars=tab:»·,trail:·,extends:…,eol:¶
 	else
-		set listchars=tab:»·,trail:·,extends:…,eol:$
+		set listchars=tab:»·,trail:·,extends:…,eol:¶
 	endif
 endif
 
