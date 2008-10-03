@@ -42,7 +42,7 @@ set autowrite " automatically write files when doing things like :make
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set noexpandtab " spaces be damned!
+set expandtab
 set smarttab " tabs to indent, spaces to align
 set cmdheight=2
 set laststatus=2
@@ -57,6 +57,7 @@ set statusline+=%h%1*%m%r%w%0* " flags
 set statusline+=\[%{strlen(&ft)?&ft:'none'}, " filetype
 set statusline+=%{&encoding}, " encoding
 set statusline+=%{&fileformat}] " file format
+set statusline+=%{VCSCommandGetStatusLine()}
 set statusline+=%= " right align
 set statusline+=%2*0x%-8B\ " current char
 set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
@@ -91,8 +92,11 @@ let Tlist_Use_Right_Window=1
 let Tlist_Enable_Fold_Column=1
 let Tlist_Show_One_File=1
 let Tlist_Compact_Format=1
-let Tlist_Process_File_Always=1
+let Tlist_Process_File_Always=0
 set updatetime=1000
+
+" vcscommand customization
+let VCSCommandEnableBufferSetup=1
 
 " set GUI options (font, color, etc)
 " TODO move this to .gvimrc ?
@@ -100,6 +104,8 @@ set guioptions-=T " no toolbar
 if has("gui_running")
 	if has("win32")
 		set guifont=Consolas:h10
+    elseif has("unix")
+        set guifont=Courier\ 12
 	else
 		set guifont=Inconsolata:h11
 	endif
