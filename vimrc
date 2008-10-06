@@ -2,6 +2,9 @@ scriptencoding utf-8
 
 set nocp    " we use vim, not vi
 
+set noswapfile " do not want
+set nobackup   " do not want
+
 " use incremental, highlighting, smart case-insensitive search
 set incsearch
 set ignorecase
@@ -49,18 +52,19 @@ set laststatus=2
 set showcmd
 set showfulltag
 set shortmess+=ts
-" set statusline=[%l,%c\ %P%M]\ %f\ %r%h%w
+
+" Configure a nice status line
 set statusline=
-set statusline+=%2*%-3.3n%0*\  " buffer number
-set statusline+=%f\ " file name
-set statusline+=%h%1*%m%r%w%0* " flags
+set statusline+=%2*%-3.3n%0*\                " buffer number
+set statusline+=%f\                          " file name
+set statusline+=%h%1*%m%r%w%0*               " flags
 set statusline+=\[%{strlen(&ft)?&ft:'none'}, " filetype
-set statusline+=%{&encoding}, " encoding
-set statusline+=%{&fileformat}] " file format
-set statusline+=%{VCSCommandGetStatusLine()}
-set statusline+=%= " right align
-set statusline+=%2*0x%-8B\ " current char
-set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
+set statusline+=%{&encoding},                " encoding
+set statusline+=%{&fileformat}]              " file format
+set statusline+=%{VCSCommandGetStatusLine()} " show vcs status
+set statusline+=%=                           " right align
+set statusline+=%2*0x%-8B\                   " current char
+set statusline+=%-14.(%l,%c%V%)\ %<%P        " offset
 
 set number
 
@@ -77,6 +81,11 @@ endif
 " key mappings
 noremap <silent> <ESC> :nohl<CR><ESC>
 
+" Platform specific junk
+if has("win32")
+    set shellslash      " Use / instead of \
+    set winaltkeys=no   " <ALT> is mappable
+endif
 if has("gui_running") && has("gui_macvim")
     macmenukey File.Close
     no <silent> <D-w> :bd<cr>
@@ -97,6 +106,10 @@ set updatetime=1000
 
 " vcscommand customization
 let VCSCommandEnableBufferSetup=1
+
+" NERD plugin config
+let NERDShutUp=1 " no more f*cking 'unknown filetype' warnings!
+
 
 " set GUI options (font, color, etc)
 " TODO move this to .gvimrc ?
@@ -125,4 +138,9 @@ inoremap <silent> <C-k> <C-o>D
 nnoremap <silent> <C-a> 0
 nnoremap <silent> <C-e> $
 nnoremap <silent> <C-k> D
+
+" read host local vimrc if available
+if filereadable(expand("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif
 
