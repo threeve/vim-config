@@ -95,7 +95,7 @@ function! s:svnFunctions.Identify(buffer)
 		let svnDir = '.svn'
 	endif
 	if isdirectory(svnDir)
-        return 1
+		return 1
 	else
 		return 0
 	endif
