@@ -110,6 +110,9 @@ let VCSCommandEnableBufferSetup=1
 " NERD plugin config
 let NERDShutUp=1 " no more f*cking 'unknown filetype' warnings!
 
+" FuzzyFinder
+nnoremap <silent> <Leader>fw :FuzzyFinderBuffer<CR>
+nnoremap <silent> <Leader>ff :FuzzyFinderFile<CR>
 
 " set GUI options (font, color, etc)
 " TODO move this to .gvimrc ?
