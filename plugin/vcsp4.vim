@@ -2,7 +2,7 @@
 "
 " Perforce extension for VCSCommand.
 "
-" Version:       VCS development
+" Version:       0.1
 " Maintainer:    Jason Foreman <jason@threeve.org>
 " License:
 " Copyright (c) 2008 Jason Foreman
@@ -104,73 +104,78 @@ endfunction
 
 " Function: s:p4Functions.Add(argList) {{{2
 function! s:p4Functions.Add(argList)
-	return s:DoCommand(join(['add'] + ['-v'] + a:argList, ' '), 'add', join(a:argList, ' '), {})
+	throw "This command is not yet implemented."
+	"return s:DoCommand(join(['add'] + ['-v'] + a:argList, ' '), 'add', join(a:argList, ' '), {})
 endfunction
 
 " Function: s:p4Functions.Annotate(argList) {{{2
 function! s:p4Functions.Annotate(argList)
-	if len(a:argList) == 0
-		if &filetype == 'p4Annotate'
-			" Perform annotation of the version indicated by the current line.
-			let options = matchstr(getline('.'),'^\x\+')
-		else
-			let options = ''
-		endif
-	elseif len(a:argList) == 1 && a:argList[0] !~ '^-'
-		let options = a:argList[0]
-	else
-		let options = join(a:argList, ' ')
-	endif
+	throw "This command is not yet implemented."
+	"if len(a:argList) == 0
+		"if &filetype == 'p4Annotate'
+			"" Perform annotation of the version indicated by the current line.
+			"let options = matchstr(getline('.'),'^\x\+')
+		"else
+			"let options = ''
+		"endif
+	"elseif len(a:argList) == 1 && a:argList[0] !~ '^-'
+		"let options = a:argList[0]
+	"else
+		"let options = join(a:argList, ' ')
+	"endif
 
-	let resultBuffer = s:DoCommand('blame ' . options . ' -- ', 'annotate', options, {})
-	if resultBuffer > 0
-		normal 1G
-		set filetype=p4Annotate
-	endif
-	return resultBuffer
+	"let resultBuffer = s:DoCommand('blame ' . options . ' -- ', 'annotate', options, {})
+	"if resultBuffer > 0
+		"normal 1G
+		"set filetype=p4Annotate
+	"endif
+	"return resultBuffer
 endfunction
 
 " Function: s:p4Functions.Commit(argList) {{{2
 function! s:p4Functions.Commit(argList)
-	let resultBuffer = s:DoCommand('commit -F "' . a:argList[0] . '"', 'commit', '', {})
-	if resultBuffer == 0
-		echomsg 'No commit needed.'
-	endif
-	return resultBuffer
+	throw "This command is not yet implemented."
+	"let resultBuffer = s:DoCommand('commit -F "' . a:argList[0] . '"', 'commit', '', {})
+	"if resultBuffer == 0
+		"echomsg 'No commit needed.'
+	"endif
+	"return resultBuffer
 endfunction
 
 " Function: s:p4Functions.Delete() {{{2
 " All options are passed through.
 function! s:p4Functions.Delete(argList)
-	let options = a:argList
-	let caption = join(a:argList, ' ')
-	return s:DoCommand(join(['rm'] + options, ' '), 'delete', caption, {})
+	throw "This command is not yet implemented."
+	"let options = a:argList
+	"let caption = join(a:argList, ' ')
+	"return s:DoCommand(join(['rm'] + options, ' '), 'delete', caption, {})
 endfunction
 
 " Function: s:p4Functions.Diff(argList) {{{2
 " Pass-through call to p4-diff.  If no options (starting with '-') are found,
 " then the options in the 'VCSCommandPerforceDiffOpt' variable are added.
 function! s:p4Functions.Diff(argList)
-	let p4DiffOpt = VCSCommandGetOption('VCSCommandPerforceDiffOpt', '')
-	if p4DiffOpt == ''
-		let diffOptions = []
-	else
-		let diffOptions = [p4DiffOpt]
-		for arg in a:argList
-			if arg =~ '^-'
-				let diffOptions = []
-				break
-			endif
-		endfor
-	endif
+	throw "This command is not yet implemented."
+	"let p4DiffOpt = VCSCommandGetOption('VCSCommandPerforceDiffOpt', '')
+	"if p4DiffOpt == ''
+		"let diffOptions = []
+	"else
+		"let diffOptions = [p4DiffOpt]
+		"for arg in a:argList
+			"if arg =~ '^-'
+				"let diffOptions = []
+				"break
+			"endif
+		"endfor
+	"endif
 
-	let resultBuffer = s:DoCommand(join(['diff'] + diffOptions + a:argList), 'diff', join(a:argList), {})
-	if resultBuffer > 0
-		set filetype=diff
-	else
-		echomsg 'No differences found'
-	endif
-	return resultBuffer
+	"let resultBuffer = s:DoCommand(join(['diff'] + diffOptions + a:argList), 'diff', join(a:argList), {})
+	"if resultBuffer > 0
+		"set filetype=diff
+	"else
+		"echomsg 'No differences found'
+	"endif
+	"return resultBuffer
 endfunction
 
 " Function: s:p4Functions.GetBufferInfo() {{{2
@@ -181,71 +186,75 @@ endfunction
 " Returns: List of results:  [revision, repository, branch]
 
 function! s:p4Functions.GetBufferInfo()
-	let oldCwd = VCSCommandChangeToCurrentFileDir(resolve(bufname('%')))
-	try
+    let oldCwd = VCSCommandChangeToCurrentFileDir(resolve(bufname('%')))
+    try
         let filename = bufname(VCSCommandGetOriginalBuffer(bufnr('%')))
-		let fstat = system(VCSCommandGetOption('VCSCommandPerforceExec', 'p4') . ' fstat ' . filename)
-		if v:shell_error
-			let have = '?'
-		else
+        let fstat = system(VCSCommandGetOption('VCSCommandPerforceExec', 'p4') . ' fstat ' . filename)
+        if v:shell_error
+            let have = '?'
+        else
             let head = matchlist(fstat, 'headRev \(.\{-}\)\n')[1]
             let have = matchlist(fstat, 'haveRev \(.\{-}\)\n')[1]
-		endif
+        endif
 
-		let info = [head, have]
+        let info = [head, have]
 
-		return info
-	finally
-		call VCSCommandChdir(oldCwd)
-	endtry
+        return info
+    finally
+        call VCSCommandChdir(oldCwd)
+    endtry
 endfunction
 
 " Function: s:p4Functions.Log() {{{2
 function! s:p4Functions.Log(argList)
-	let resultBuffer=s:DoCommand(join(['log'] + a:argList), 'log', join(a:argList, ' '), {})
-	if resultBuffer > 0
-		set filetype=p4log
-	endif
-	return resultBuffer
+	throw "This command is not yet implemented."
+	"let resultBuffer=s:DoCommand(join(['log'] + a:argList), 'log', join(a:argList, ' '), {})
+	"if resultBuffer > 0
+		"set filetype=p4log
+	"endif
+	"return resultBuffer
 endfunction
 
 " Function: s:p4Functions.Revert(argList) {{{2
 function! s:p4Functions.Revert(argList)
-	return s:DoCommand('checkout', 'revert', '', {})
+	throw "This command is not yet implemented."
+	"return s:DoCommand('checkout', 'revert', '', {})
 endfunction
 
 " Function: s:p4Functions.Review(argList) {{{2
 function! s:p4Functions.Review(argList)
-	if len(a:argList) == 0
-		let revision = 'HEAD'
-	else
-		let revision = a:argList[0]
-	endif
+	throw "This command is not yet implemented."
+	"if len(a:argList) == 0
+		"let revision = 'HEAD'
+	"else
+		"let revision = a:argList[0]
+	"endif
 
-	let oldCwd = VCSCommandChangeToCurrentFileDir(resolve(bufname(VCSCommandGetOriginalBuffer('%'))))
-	try
-		let prefix = system(VCSCommandGetOption('VCSCommandPerforceExec', 'p4') . ' rev-parse --show-prefix')
-	finally
-		call VCSCommandChdir(oldCwd)
-	endtry
+	"let oldCwd = VCSCommandChangeToCurrentFileDir(resolve(bufname(VCSCommandGetOriginalBuffer('%'))))
+	"try
+		"let prefix = system(VCSCommandGetOption('VCSCommandPerforceExec', 'p4') . ' rev-parse --show-prefix')
+	"finally
+		"call VCSCommandChdir(oldCwd)
+	"endtry
 
-	let prefix = substitute(prefix, '\n$', '', '')
-	let blob = '"' . revision . ':' . prefix . '<VCSCOMMANDFILE>"'
-	let resultBuffer = s:DoCommand('show ' . blob, 'review', revision, {})
-	if resultBuffer > 0
-		let &filetype=getbufvar(b:VCSCommandOriginalBuffer, '&filetype')
-	endif
-	return resultBuffer
+	"let prefix = substitute(prefix, '\n$', '', '')
+	"let blob = '"' . revision . ':' . prefix . '<VCSCOMMANDFILE>"'
+	"let resultBuffer = s:DoCommand('show ' . blob, 'review', revision, {})
+	"if resultBuffer > 0
+		"let &filetype=getbufvar(b:VCSCommandOriginalBuffer, '&filetype')
+	"endif
+	"return resultBuffer
 endfunction
 
 " Function: s:p4Functions.Status(argList) {{{2
 function! s:p4Functions.Status(argList)
-	return s:DoCommand(join(['status'] + a:argList), 'status', join(a:argList), {'allowNonZeroExit': 1})
+	throw "This command is not yet implemented."
+	"return s:DoCommand(join(['status'] + a:argList), 'status', join(a:argList), {'allowNonZeroExit': 1})
 endfunction
 
 " Function: s:p4Functions.Update(argList) {{{2
 function! s:p4Functions.Update(argList)
-	throw "This command is not implemented for p4 because file-by-file update doesn't make much sense in that context.  If you have an idea for what it should do, please let me know."
+	throw "This command is not yet implemented."
 endfunction
 
 
