@@ -1,6 +1,6 @@
 scriptencoding utf-8
 
-set nocp	" we use vim, not vi
+set nocp    " we use vim, not vi
 
 " use incremental, highlighting, smart case-insensitive search
 set incsearch
@@ -19,7 +19,7 @@ set backspace=eol,start,indent " backspace crosses newlines?
 set whichwrap+=<>[]
 
 if has("syntax")
-	syntax on
+    syntax on
 endif
 
 filetype on
@@ -66,11 +66,11 @@ set number
 
 " nicer looking tabs and whitespace
 if (&termencoding == "utf-8") || has("gui_running")
-	if v:version >= 700
-		set listchars=tab:»·,trail:·,extends:…,eol:¶
-	else
-		set listchars=tab:»·,trail:·,extends:…,eol:¶
-	endif
+    if v:version >= 700
+        set listchars=tab:»·,trail:·,extends:…,eol:¶
+    else
+        set listchars=tab:»·,trail:·,extends:…,eol:¶
+    endif
 endif
 
 
@@ -78,9 +78,9 @@ endif
 noremap <silent> <ESC> :nohl<CR><ESC>
 
 if has("gui_running") && has("gui_macvim")
-	macmenukey File.Close
-	no <silent> <D-w> :bd<cr>
-	ino <silent> <D-w> <C-o>:bd<cr>
+    macmenukey File.Close
+    no <silent> <D-w> :bd<cr>
+    ino <silent> <D-w> <C-o>:bd<cr>
 endif
 
 autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highlighting (full)
@@ -102,16 +102,16 @@ let VCSCommandEnableBufferSetup=1
 " TODO move this to .gvimrc ?
 set guioptions-=T " no toolbar
 if has("gui_running")
-	if has("win32")
-		set guifont=Consolas:h10
-    elseif has("unix")
+    if has("win32")
+        set guifont=Consolas:h10
+    elseif has("mac")
+        set guifont=Inconsolata:h11
+    else
         set guifont=Courier\ 12
-	else
-		set guifont=Inconsolata:h11
-	endif
-	colorscheme wombat
-	set co=120 " 120 columns by default
-	set lines=999 " as many lines as will fit.
+    endif
+    colorscheme wombat
+    set co=120 " 120 columns by default
+    set lines=999 " as many lines as will fit.
 endif
 
 " tags config
