@@ -254,7 +254,7 @@ endfunction
 
 " Function: s:p4Functions.Update(argList) {{{2
 function! s:p4Functions.Update(argList)
-	throw "This command is not yet implemented."
+    return s:DoCommand(join(['sync'] + a:argList, ' '), 'sync', join(a:argList, ' '), {})
 endfunction
 
 
