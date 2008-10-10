@@ -90,8 +90,8 @@ function! s:p4Functions.Identify(buffer)
             return 0
         else
             let lines = split(info, '\n')
-            let root = matchlist(lines, '^Client root: \(.*\)')[1]
-            if stridx(getcwd(), root) == 0
+            let root = matchlist(lines, '^Client root: \(.*\)')
+            if len(root) > 1 && stridx(getcwd(), root[1]) == 0
                 return g:VCSCOMMAND_IDENTIFY_EXACT
             else
                 return 0
@@ -190,8 +190,9 @@ function! s:p4Functions.GetBufferInfo()
     try
         let filename = bufname(VCSCommandGetOriginalBuffer(bufnr('%')))
         let fstat = system(VCSCommandGetOption('VCSCommandPerforceExec', 'p4') . ' fstat ' . filename)
-        if v:shell_error
+        if v:shell_error || match(fstat, 'no such file') >= 0
             let have = '?'
+            let head = '?'
         else
             let head = matchlist(fstat, 'headRev \(.\{-}\)\n')[1]
             let have = matchlist(fstat, 'haveRev \(.\{-}\)\n')[1]
