@@ -11,7 +11,7 @@ set lazyredraw
 set incsearch
 set ignorecase
 set smartcase
-set infercase " better case handling for insert mode completion
+set noinfercase " better case handling for insert mode completion
 set hlsearch " turn on search match highlighting...
 nohl " ...but turn it off immediately, in case reloading.
 
@@ -100,10 +100,11 @@ autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 
 " TagList customizations
 let Tlist_Use_Right_Window=1
-let Tlist_Enable_Fold_Column=1
+let Tlist_Enable_Fold_Column=0
 let Tlist_Show_One_File=1
 let Tlist_Compact_Format=1
 let Tlist_Process_File_Always=0
+let Tlist_Exit_OnlyWindow=1
 set updatetime=1000
 
 " vcscommand customization
@@ -114,6 +115,16 @@ let NERDShutUp=1 " no more f*cking 'unknown filetype' warnings!
 
 " Dr Chip (Align, et al)
 let DrChipTopLvlMenu="&Plugin."
+
+" Syntax customizations
+let c_gnu=1
+let c_space_errors=1
+let c_curly_error=1
+
+" TODO enable doxygen syntax when fix color scheme
+"let g:load_doxygen_syntax=1
+let doxygen_enhanced_color=0
+let doxygen_my_rendering=1
 
 " FuzzyFinder
 nnoremap <silent> <Leader>fw :FuzzyFinderBuffer<CR>
@@ -165,6 +176,17 @@ inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
 " hitting enter with completion open selects the completion and closes preview
 inoremap <silent> <expr> <CR> pumvisible() ? "\<C-Y>\<C-O>\<C-W>z" : "\<CR>"
 inoremap <silent> <expr> <S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
+
+" http://dotfiles.org/~caio/.vimrc
+function! s:SmartHome()
+    let ll = strpart(getline('.'), -1, col('.'))
+    if ll =~ '^\s\+$' | normal! 0
+    else              | normal! ^
+    endif
+endfunction
+inoremap <silent> <HOME> <C-O>:call <SID>SmartHome()<CR>
+nnoremap <silent> <HOME> :call <SID>SmartHome()<CR>
+
 
 " Regenerate help files
 if has('win32')
