@@ -5,6 +5,8 @@ set nocp    " we use vim, not vi
 set noswapfile " do not want
 set nobackup   " do not want
 
+set lazyredraw
+
 " use incremental, highlighting, smart case-insensitive search
 set incsearch
 set ignorecase
@@ -109,6 +111,9 @@ let VCSCommandEnableBufferSetup=1
 
 " NERD plugin config
 let NERDShutUp=1 " no more f*cking 'unknown filetype' warnings!
+
+" Dr Chip (Align, et al)
+let DrChipTopLvlMenu="&Plugin."
 
 " FuzzyFinder
 nnoremap <silent> <Leader>fw :FuzzyFinderBuffer<CR>
