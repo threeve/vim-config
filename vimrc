@@ -205,6 +205,28 @@ endfunction
 inoremap <silent> <HOME> <C-O>:call <SID>SmartHome()<CR>
 nnoremap <silent> <HOME> :call <SID>SmartHome()<CR>
 
+" function to regenerate all tag types (ctags, gtags, cscope) for cwd
+function! s:RegenerateTags()
+    " use the ctags found by taglist if it exists
+    if exists('g:Tlist_Ctags_Cmd')
+        let ctags = g:Tlist_Ctags_Cmd
+    else
+        let ctags = 'ctags'
+    endif
+    if executable(ctags)
+        " TODO
+        echomsg "Executing ctags"
+    endif
+
+    if executable('gtags')
+        echomsg "Executing gtags"
+    endif
+
+    if executable('cscope')
+        echomsg "Executing cscope"
+    endif
+endfunction
+com! -nargs=0 RegenerateTags call s:RegenerateTags()
 
 " Regenerate help files
 if has('win32')
