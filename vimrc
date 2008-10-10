@@ -159,6 +159,7 @@ inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
 
 " hitting enter with completion open selects the completion and closes preview
 inoremap <silent> <expr> <CR> pumvisible() ? "\<C-Y>\<C-O>\<C-W>z" : "\<CR>"
+inoremap <silent> <expr> <S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
 
 " read host local vimrc if available
 if filereadable(expand("~/.vimrc.local"))
