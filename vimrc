@@ -161,6 +161,13 @@ inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
 inoremap <silent> <expr> <CR> pumvisible() ? "\<C-Y>\<C-O>\<C-W>z" : "\<CR>"
 inoremap <silent> <expr> <S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
 
+" Regenerate help files
+if has('win32')
+    helptags ~/vimfiles/doc/
+else
+    helptags ~/.vim/doc/
+endif
+
 " read host local vimrc if available
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
