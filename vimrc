@@ -142,6 +142,24 @@ nnoremap <silent> <C-a> 0
 nnoremap <silent> <C-e> $
 nnoremap <silent> <C-k> D
 
+" http://vim.wikia.com/wiki/Smart_mapping_for_tab_completion
+function! CleverTab()
+  if pumvisible()
+    return "\<C-N>"
+  endif
+  if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
+    return "\<Tab>"
+  elseif exists('&omnifunc') && &omnifunc != ''
+    return "\<C-X>\<C-O>"
+  else
+    return "\<C-N>"
+  endif
+endfunction
+inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
+
+" hitting enter with completion open selects the completion and closes preview
+inoremap <silent> <expr> <CR> pumvisible() ? "\<C-Y>\<C-O>\<C-W>z" : "\<CR>"
+
 " read host local vimrc if available
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
