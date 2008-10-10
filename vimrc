@@ -102,6 +102,7 @@ autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 let OmniCpp_NamespaceSearch=2
 let OmniCpp_SelectFirstItem=2
 let OmniCpp_LocalSearchDecl=1
+set tags=tags;/
 
 " TagList customizations
 let Tlist_Use_Right_Window=1
@@ -111,6 +112,7 @@ let Tlist_Compact_Format=1
 let Tlist_Process_File_Always=0
 let Tlist_Exit_OnlyWindow=1
 set updatetime=1000
+au BufEnter __Tag_List__ :setlocal statusline=Tag\ List 
 
 " vcscommand customization
 let VCSCommandEnableBufferSetup=1
@@ -162,9 +164,6 @@ if has("gui_running")
         set lines=999 " as many lines as will fit.
     endif
 endif
-
-" tags config
-set tags=tags;/
 
 " A little bit (just a little) of Emacs stylee navigation.
 " Hard to un-learn these, and they work in lots of apps
