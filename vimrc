@@ -98,6 +98,11 @@ autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highli
 " setup git commits to use the git syntax highlighting
 autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 
+" OmniCppComplete
+let OmniCpp_NamespaceSearch=2
+let OmniCpp_SelectFirstItem=2
+let OmniCpp_LocalSearchDecl=1
+
 " TagList customizations
 let Tlist_Use_Right_Window=1
 let Tlist_Enable_Fold_Column=0
@@ -142,8 +147,20 @@ if has("gui_running")
         set guifont=Courier\ 12
     endif
     colorscheme wombat
-    set co=120 " 120 columns by default
-    set lines=999 " as many lines as will fit.
+    " better TODO highlighting.  The default bright-ass yellow bg is not fun.
+    hi Todo guifg=#d9db56 guibg=NONE gui=bold
+endif
+
+" maximize
+if has("gui_running")
+    if has("win32")
+        au GUIEnter * simalt ~x
+    elseif has("mac")
+        " TODO
+    else
+        set co=120 " 120 columns by default
+        set lines=999 " as many lines as will fit.
+    endif
 endif
 
 " tags config
