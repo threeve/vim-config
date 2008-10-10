@@ -151,6 +151,8 @@ if has("gui_running")
     colorscheme wombat
     " better TODO highlighting.  The default bright-ass yellow bg is not fun.
     hi Todo guifg=#d9db56 guibg=NONE gui=bold
+    " better search highlighting.  Less obnoxious than Yellow.
+    hi Search guifg=Black guibg=#d9db56
 endif
 
 " maximize
