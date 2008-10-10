@@ -87,7 +87,7 @@ if has("win32")
     set winaltkeys=no   " <ALT> is mappable
 endif
 if has("gui_running") && has("gui_macvim")
-    macmenukey File.Close
+    macmenu File.Close key=<nop>
     no <silent> <D-w> :bd<cr>
     ino <silent> <D-w> <C-o>:bd<cr>
 endif
