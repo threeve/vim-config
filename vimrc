@@ -138,6 +138,9 @@ let doxygen_my_rendering=1
 " FuzzyFinder
 nnoremap <silent> <Leader>fw :FuzzyFinderBuffer<CR>
 nnoremap <silent> <Leader>ff :FuzzyFinderFile<CR>
+nnoremap <silent> <Leader>fd :FuzzyFinderDir<CR>
+nnoremap <silent> <Leader>fj :FuzzyFinderTextMate<CR>
+nnoremap <silent> <Leader>ft :FuzzyFinderTag<CR>
 
 " snippetsEmu
 let snippetsEmu_key="<C-L>"
