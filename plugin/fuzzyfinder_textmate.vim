@@ -25,18 +25,36 @@ command! -bang -narg=? -complete=file   FuzzyFinderTextMate   call FuzzyFinderTe
 
 function! InstantiateTextMateMode() "{{{
 ruby << RUBY
-  $LOAD_PATH << "#{ENV['HOME']}/.vim/ruby"
-
   begin
-    require 'rubygems'
-    gem 'fuzzy_file_finder'
+    require "#{ENV['HOME']}/.vim/ruby/fuzzy_file_finder"
   rescue LoadError
-  end
+    begin
+      require 'rubygems'
+      begin
+        gem 'fuzzy_file_finder'
+      rescue Gem::LoadError
+        gem 'jamis-fuzzy_file_finder'
+      end
+    rescue LoadError
+    end
 
-  require 'fuzzy_file_finder'
+    require 'fuzzy_file_finder'
+  end
 RUBY
 
-  ruby def finder; @finder ||= FuzzyFileFinder.new; end
+  " Configuration option: g:fuzzy_roots
+  " Specifies roots in which the FuzzyFinder will search.
+  if !exists('g:fuzzy_roots')
+    let g:fuzzy_roots = ['.']
+  endif
+
+  " Configuration option: g:fuzzy_ceiling
+  " Specifies the maximum number of files that FuzzyFinder allows to be searched
+  if !exists('g:fuzzy_ceiling')
+    let g:fuzzy_ceiling = 10000
+  endif
+
+  ruby def finder; @finder ||= FuzzyFileFinder.new(VIM.evaluate("g:fuzzy_roots").split("\n"), VIM.evaluate("g:fuzzy_ceiling").to_i); end
 
   let g:FuzzyFinderMode.TextMate = copy(g:FuzzyFinderMode.Base)
 
