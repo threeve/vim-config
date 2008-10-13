@@ -161,6 +161,10 @@ if has("gui_running")
         au GUIEnter * simalt ~x
     elseif has("mac")
         " TODO
+        let script='osascript -e "tell application \"MacVim\""'
+                    \ . ' -e "set zoomed of first window to true"'
+                    \ . ' -e "end tell"'
+        au VIMEnter * call system(script)
     else
         set co=120 " 120 columns by default
         set lines=999 " as many lines as will fit.
