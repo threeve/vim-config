@@ -82,7 +82,7 @@ endif
 
 
 " key mappings
-noremap <silent> <ESC> :nohl<CR><ESC>
+nnoremap <silent> <Esc> :nohl<CR>
 
 " Platform specific junk
 if has("win32")
@@ -125,9 +125,10 @@ let NERDShutUp=1 " no more f*cking 'unknown filetype' warnings!
 let DrChipTopLvlMenu="&Plugin."
 
 " Syntax customizations
-let c_gnu=1
-let c_space_errors=1
-let c_curly_error=1
+let c_gnu=0
+let c_space_errors=0
+let c_curly_error=0
+set cinoptions=g1,t0,(0,W4
 
 " TODO enable doxygen syntax when fix color scheme
 "let g:load_doxygen_syntax=1
