@@ -227,15 +227,19 @@ function! s:RegenerateTags()
         let ctags = 'ctags'
     endif
     if executable(ctags)
-        " TODO
-        echomsg "Executing ctags"
+        call system(ctags . ' -R --c++-kinds=+p --fields=+ias --extra=+q .')
+        if (v:shell_error)
+            echoerr "Error executing ctags"
+        endif
     endif
 
     if executable('gtags')
+        " TODO
         echomsg "Executing gtags"
     endif
 
     if executable('cscope')
+        " TODO
         echomsg "Executing cscope"
     endif
 endfunction
