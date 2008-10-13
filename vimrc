@@ -137,6 +137,9 @@ let doxygen_my_rendering=1
 nnoremap <silent> <Leader>fw :FuzzyFinderBuffer<CR>
 nnoremap <silent> <Leader>ff :FuzzyFinderFile<CR>
 
+" snippetsEmu
+let snippetsEmu_key="<C-L>"
+
 " set GUI options (font, color, etc)
 " TODO move this to .gvimrc ?
 set guioptions-=T " no toolbar
