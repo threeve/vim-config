@@ -123,9 +123,6 @@ let NERDShutUp=1 " no more f*cking 'unknown filetype' warnings!
 " Dr Chip (Align, et al)
 let DrChipTopLvlMenu="&Plugin."
 
-" snippetsEmu
-let snippetsEmu_menu = "&Plugin."
-
 " Syntax customizations
 let c_gnu=1
 let c_space_errors=1
@@ -142,6 +139,7 @@ nnoremap <silent> <Leader>ff :FuzzyFinderFile<CR>
 
 " snippetsEmu
 let snippetsEmu_key="<C-L>"
+let snippetsEmu_menu = "&Plugin."
 
 " set GUI options (font, color, etc)
 " TODO move this to .gvimrc ?
