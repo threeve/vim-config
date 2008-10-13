@@ -17,6 +17,7 @@ nohl " ...but turn it off immediately, in case reloading.
 
 " buffer control
 set switchbuf=usetab
+set noequalalways
 
 set ruler " show line/col position
 set scrolloff=3 " show 3 lines of context when scrolling
