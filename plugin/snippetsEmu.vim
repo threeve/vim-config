@@ -126,6 +126,10 @@ if !exists("g:snippetsEmu_key")
   let g:snippetsEmu_key = "<Tab>"
 endif
 
+if !exists("g:snippetsEmu_menu")
+  let g:snippetsEmu_menu = ""
+endif
+
 "call s:Debug("", "Set variables")
 
 " }}}
@@ -133,7 +137,7 @@ endif
 for def_file in split(globpath(&rtp, "after/ftplugin/*_snippets.vim"), '\n')
   "call s:Debug("","Adding ".def_file." definitions to menu")
   let snip = substitute(def_file, '.*[\\/]\(.*\)_snippets.vim', '\1', '')
-  exec "nmenu <silent> S&nippets.".snip." :source ".def_file."<CR>"
+  exec "nmenu <silent> ".g:snippetsEmu_menu."S&nippets.".snip." :source ".def_file."<CR>"
 endfor
 " }}}
 " {{{ Sort out supertab
