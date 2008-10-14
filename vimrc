@@ -83,6 +83,8 @@ endif
 
 " key mappings
 nnoremap <silent> <Esc> :nohl<CR>
+nnoremap <F6> :mak<CR>
+nnoremap <C-F6> :mak clean<CR>
 
 " Platform specific junk
 if has("win32")
@@ -234,8 +236,10 @@ function! s:RegenerateTags()
     endif
 
     if executable('gtags')
-        " TODO
-        echomsg "Executing gtags"
+        call system('gtags')
+        if (v:shell_error)
+            echoerr "Error executing gtags"
+        endif
     endif
 
     if executable('cscope')
