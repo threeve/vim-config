@@ -130,7 +130,7 @@ let DrChipTopLvlMenu="&Plugin."
 let c_gnu=0
 let c_space_errors=0
 let c_curly_error=0
-set cinoptions=g1,t0,(0,W4
+set cinoptions=g1,hs-1,t0,(0,W4
 
 " TODO enable doxygen syntax when fix color scheme
 "let g:load_doxygen_syntax=1
@@ -222,6 +222,7 @@ nnoremap <silent> <HOME> :call <SID>SmartHome()<CR>
 
 " function to regenerate all tag types (ctags, gtags, cscope) for cwd
 function! s:RegenerateTags()
+    let tags = []
     " use the ctags found by taglist if it exists
     if exists('g:Tlist_Ctags_Cmd')
         let ctags = g:Tlist_Ctags_Cmd
@@ -229,9 +230,11 @@ function! s:RegenerateTags()
         let ctags = 'ctags'
     endif
     if executable(ctags)
-        call system(ctags . ' -R --c++-kinds=+p --fields=+ias --extra=+q .')
+        call system(ctags . ' -R --c++-kinds=+p --fields=+iaS --extra=+q .')
         if (v:shell_error)
             echoerr "Error executing ctags"
+        else
+            call add(tags, ctags)
         endif
     endif
 
@@ -239,15 +242,19 @@ function! s:RegenerateTags()
         call system('gtags')
         if (v:shell_error)
             echoerr "Error executing gtags"
+        else
+            call add(tags, 'gtags')
         endif
     endif
 
     if executable('cscope')
         " TODO
-        echomsg "Executing cscope"
     endif
+
+    echomsg "Tags generated: " . join(tags, ', ')
 endfunction
 com! -nargs=0 RegenerateTags call s:RegenerateTags()
+nnoremap <silent> <C-F12> :RegenerateTags<CR>
 
 " Regenerate help files
 if has('win32')
