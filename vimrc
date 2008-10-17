@@ -37,6 +37,7 @@ set hidden " allow hidden buffers, rather than closing
 set wildchar=<TAB>
 set wildmenu
 set wildmode=longest:full,full " complete longest match, showing list, then cycle through full matches
+set wildignore=*.o,*.obj,*.bak,*.exe,*.so,*~
 
 set completeopt=longest,menu,preview " happy completion style
 
@@ -71,6 +72,7 @@ set statusline+=%-14.(%l,%c%V%)\ %<%P        " offset
 
 set number
 
+set encoding=utf-8
 " nicer looking tabs and whitespace
 if (&termencoding == "utf-8") || has("gui_running")
     if v:version >= 700
@@ -82,9 +84,10 @@ endif
 
 
 " key mappings
-nnoremap <silent> <Esc> :nohl<CR>
+nnoremap <silent> <C-l> :nohl<CR><C-l>
 nnoremap <F6> :mak<CR>
 nnoremap <C-F6> :mak clean<CR>
+nnoremap <F2> :NERDTreeToggle<CR>
 
 " Platform specific junk
 if has("win32")
@@ -127,15 +130,16 @@ let NERDShutUp=1 " no more f*cking 'unknown filetype' warnings!
 let DrChipTopLvlMenu="&Plugin."
 
 " Syntax customizations
-let c_gnu=0
-let c_space_errors=0
-let c_curly_error=0
+let g:is_posix=1
+let g:c_gnu=0
+let g:c_space_errors=0
+let g:c_curly_error=0
 set cinoptions=g1,hs-1,t0,(0,W4
 
 " TODO enable doxygen syntax when fix color scheme
-"let g:load_doxygen_syntax=1
-let doxygen_enhanced_color=0
-let doxygen_my_rendering=1
+let g:load_doxygen_syntax=1
+let g:doxygen_enhanced_color=0
+let g:doxygen_my_rendering=1
 
 " FuzzyFinder
 nnoremap <silent> <Leader>fw :FuzzyFinderBuffer<CR>
@@ -145,8 +149,8 @@ nnoremap <silent> <Leader>fj :FuzzyFinderTextMate<CR>
 nnoremap <silent> <Leader>ft :FuzzyFinderTag<CR>
 
 " snippetsEmu
-let snippetsEmu_key="<C-L>"
-let snippetsEmu_menu = "&Plugin."
+let g:snippetsEmu_key="<C-L>"
+let g:snippetsEmu_menu = "&Plugin."
 
 " set GUI options (font, color, etc)
 " TODO move this to .gvimrc ?
