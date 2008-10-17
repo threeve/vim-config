@@ -152,6 +152,15 @@ nnoremap <silent> <Leader>ft :FuzzyFinderTag<CR>
 let g:snippetsEmu_key="<C-L>"
 let g:snippetsEmu_menu = "&Plugin."
 
+" speeddating
+let g:speeddating_no_mappings=1
+nmap  <C-Up>    <Plug>SpeedDatingUp
+nmap  <C-Down>  <Plug>SpeedDatingDown
+xmap  <C-Up>    <Plug>SpeedDatingUp
+xmap  <C-Down>  <Plug>SpeedDatingDown
+nmap d<C-Up>    <Plug>SpeedDatingNowUTC
+nmap d<C-Down>  <Plug>SpeedDatingNowLocal
+
 " set GUI options (font, color, etc)
 " TODO move this to .gvimrc ?
 set guioptions-=T " no toolbar
