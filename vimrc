@@ -271,6 +271,23 @@ endfunction
 com! -nargs=0 RegenerateTags call s:RegenerateTags()
 nnoremap <silent> <C-F12> :RegenerateTags<CR>
 
+" function to cycle through available line numbering modes [off, abs, rel]
+function! s:CycleLineNumbers()
+    if &nu
+        if exists('+relativenumber')
+            set rnu
+        else
+            set nonu
+        endif
+    elseif exists('+relativenumber') && &rnu
+        set nornu
+    else
+        set nu
+    endif
+endfunction
+com! -nargs=0 CycleLineNumbers call <SID>CycleLineNumbers()
+nnoremap <silent> <F11> :CycleLineNumbers<CR>
+
 " Regenerate help files
 if has('win32')
     helptags ~/vimfiles/doc/
