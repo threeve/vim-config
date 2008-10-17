@@ -88,6 +88,7 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 nnoremap <F6> :mak<CR>
 nnoremap <C-F6> :mak clean<CR>
 nnoremap <F2> :NERDTreeToggle<CR>
+map Y y$
 
 " Platform specific junk
 if has("win32")
