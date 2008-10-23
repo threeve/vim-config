@@ -165,14 +165,15 @@ nmap d<C-Down>  <Plug>SpeedDatingNowLocal
 
 " set GUI options (font, color, etc)
 " TODO move this to .gvimrc ?
-set guioptions=aegimt
+set guioptions=aegit
 if has("gui_running")
     if has("win32")
         set guifont=Consolas:h10
     elseif has("mac")
         set guifont=Inconsolata:h11
     else
-        set guifont=Courier\ 12
+        set guifont=Consolas\ 12
+        set linespace=1
     endif
     colorscheme wombat
     " better TODO highlighting.  The default bright-ass yellow bg is not fun.
