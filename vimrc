@@ -85,10 +85,10 @@ endif
 
 " key mappings
 nnoremap <silent> <C-l> :nohl<CR><C-l>
-nnoremap <F6> :mak<CR>
-nnoremap <C-F6> :mak clean<CR>
-nnoremap <F2> :NERDTreeToggle<CR>
-nnoremap <F12> :TlistToggle<CR>
+nnoremap <silent> <F6> :mak<CR>
+nnoremap <silent> <C-F6> :mak clean<CR>
+nnoremap <silent> <F2> :NERDTreeToggle<CR>
+nnoremap <silent> <F12> :TlistToggle<CR>
 map Y y$
 
 " Platform specific junk
@@ -136,7 +136,7 @@ let g:is_posix=1
 let g:c_gnu=0
 let g:c_space_errors=0
 let g:c_curly_error=0
-set cinoptions=g1,hs-1,t0,(0,W4
+set cinoptions=g1,h3,t0,(0,W4
 
 " TODO enable doxygen syntax when fix color scheme
 let g:load_doxygen_syntax=1
@@ -165,7 +165,7 @@ nmap d<C-Down>  <Plug>SpeedDatingNowLocal
 
 " set GUI options (font, color, etc)
 " TODO move this to .gvimrc ?
-set guioptions-=T " no toolbar
+set guioptions=aegimt
 if has("gui_running")
     if has("win32")
         set guifont=Consolas:h10
