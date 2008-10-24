@@ -175,7 +175,7 @@ if has("gui_running")
     elseif has("mac")
         set guifont=Inconsolata:h11
     else
-        set guifont=Consolas\ 12
+        set guifont=Consolas\ 12,Courier\ 12
         set linespace=1
     endif
     colorscheme wombat
