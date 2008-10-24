@@ -113,6 +113,8 @@ autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highli
 " setup git commits to use the git syntax highlighting
 autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 
+runtime! macros/matchit.vim
+
 " OmniCppComplete
 let OmniCpp_NamespaceSearch=2
 let OmniCpp_SelectFirstItem=2
