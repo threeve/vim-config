@@ -2,6 +2,7 @@ scriptencoding utf-8
 
 set nocp    " we use vim, not vi
 
+" adds .vim/bundle/* to runtimepath
 silent! call pathogen#runtime_append_all_bundles()
 
 set noswapfile " do not want
@@ -294,8 +295,14 @@ nnoremap <silent> <F11> :CycleLineNumbers<CR>
 " Regenerate help files
 if has('win32')
     helptags ~/vimfiles/doc/
+    for d in pathogen#glob_directories('~/vimfiles/bundle/**/doc')
+        exec 'helptags ' . d
+    endfor
 else
     helptags ~/.vim/doc/
+    for d in pathogen#glob_directories('~/.vim/bundle/**/doc')
+        exec 'helptags ' . d
+    endfor
 endif
 
 " read host local vimrc if available
