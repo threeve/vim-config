@@ -2,6 +2,10 @@ scriptencoding utf-8
 
 set nocp    " we use vim, not vi
 
+" use ~/.vim on Windows too.
+if has("win32")
+    let &runtimepath = substitute(&runtimepath,'\(\~\|jason\|jforeman\)/vimfiles\>','\1/.vim','g')
+endif
 " adds .vim/bundle/* to runtimepath
 silent! call pathogen#runtime_append_all_bundles()
 
@@ -201,10 +205,10 @@ if has("gui_running")
     endif
 endif
 
-" A little bit (just a little) of Emacs stylee navigation.
-" Hard to un-learn these, and they work in lots of apps
-inoremap <silent> <C-a> <C-o>0
-inoremap <silent> <C-e> <C-o>$
+" A little bit (just a little) of Emacs style navigation.
+" Hard to unlearn these, and they work in lots of apps
+imap <silent> <C-a> <Home>
+inoremap <silent> <C-e> <End>
 inoremap <silent> <C-k> <C-o>D
 nnoremap <silent> <C-a> 0
 nnoremap <silent> <C-e> $
