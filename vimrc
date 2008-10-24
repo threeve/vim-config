@@ -2,6 +2,8 @@ scriptencoding utf-8
 
 set nocp    " we use vim, not vi
 
+silent! call pathogen#runtime_append_all_bundles()
+
 set noswapfile " do not want
 set nobackup   " do not want
 
