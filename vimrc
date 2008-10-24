@@ -297,17 +297,10 @@ com! -nargs=0 CycleLineNumbers call <SID>CycleLineNumbers()
 nnoremap <silent> <F11> :CycleLineNumbers<CR>
 
 " Regenerate help files
-if has('win32')
-    helptags ~/vimfiles/doc/
-    for d in pathogen#glob_directories('~/vimfiles/bundle/**/doc')
-        exec 'helptags ' . d
-    endfor
-else
-    helptags ~/.vim/doc/
-    for d in pathogen#glob_directories('~/.vim/bundle/**/doc')
-        exec 'helptags ' . d
-    endfor
-endif
+helptags ~/.vim/doc/
+for d in pathogen#glob_directories('~/.vim/bundle/**/doc')
+    exec 'helptags ' . d
+endfor
 
 " read host local vimrc if available
 if filereadable(expand("~/.vimrc.local"))
