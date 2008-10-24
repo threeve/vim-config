@@ -30,6 +30,7 @@ set ruler " show line/col position
 set scrolloff=3 " show 3 lines of context when scrolling
 set backspace=eol,start,indent " backspace crosses newlines?
 set whichwrap+=<>[]
+set display=lastline " show as much of the last line as possible
 
 if has("syntax")
     syntax on
@@ -64,17 +65,17 @@ set showcmd
 set showfulltag
 set shortmess+=ts
 
-" Configure a nice status line
+" Configure a nice status line (based on jamessan's?)
 set statusline=
-set statusline+=%2*%-3.3n%0*\                " buffer number
+set statusline+=%3.3n\                       " buffer number
 set statusline+=%f\                          " file name
 set statusline+=%h%1*%m%r%w%0*               " flags
 set statusline+=\[%{strlen(&ft)?&ft:'none'}, " filetype
-set statusline+=%{&encoding},                " encoding
+set statusline+=%{strlen(&fenc)?&fenc:&enc}, " encoding
 set statusline+=%{&fileformat}]              " file format
-set statusline+=%{VCSCommandGetStatusLine()} " show vcs status
+set statusline+=%{exists('loaded_VCSCommand')?VCSCommandGetStatusLine():''} " show vcs status
 set statusline+=%=                           " right align
-set statusline+=%2*0x%-8B\                   " current char
+set statusline+=0x%-8B\                      " current char
 set statusline+=%-14.(%l,%c%V%)\ %<%P        " offset
 
 set number
@@ -97,6 +98,7 @@ nnoremap <silent> <C-F6> :mak clean<CR>
 nnoremap <silent> <F2> :NERDTreeToggle<CR>
 nnoremap <silent> <F12> :TlistToggle<CR>
 map Y y$
+map zm zz
 
 " Platform specific junk
 if has("win32")
