@@ -67,12 +67,15 @@ RUBY
 
 ruby << RUBY
   def finder
-    @finder ||= begin
+    cwd = VIM.evaluate("getcwd()")
+    @finder = begin
+      @cwd = cwd
       roots = VIM.evaluate("g:fuzzy_roots").split("\n")
       ceiling = VIM.evaluate("g:fuzzy_ceiling").to_i
       ignore = VIM.evaluate("g:fuzzy_ignore").split(/;/)
       FuzzyFileFinder.new(roots, ceiling, ignore)
-    end
+    end unless @finder && cwd == @cwd
+    @finder
   end
 RUBY
 
