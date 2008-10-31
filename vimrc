@@ -160,6 +160,8 @@ nnoremap <silent> <Leader>ff :FuzzyFinderFile<CR>
 nnoremap <silent> <Leader>fd :FuzzyFinderDir<CR>
 nnoremap <silent> <Leader>fj :FuzzyFinderTextMate<CR>
 nnoremap <silent> <Leader>ft :FuzzyFinderTag<CR>
+nnoremap <silent> <Leader>fk :FuzzyFinderMruCmd<CR>
+nnoremap <silent> <Leader>fm :FuzzyFinderMruFile<CR>
 
 " snippetsEmu
 let g:snippetsEmu_key="<C-L>"
