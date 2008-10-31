@@ -18,7 +18,7 @@ set lazyredraw
 set incsearch
 set ignorecase
 set smartcase
-set noinfercase " better case handling for insert mode completion
+set infercase " better case handling for insert mode completion
 set hlsearch " turn on search match highlighting...
 nohl " ...but turn it off immediately, in case reloading.
 
@@ -32,13 +32,9 @@ set backspace=eol,start,indent " backspace crosses newlines?
 set whichwrap+=<>[]
 set display=lastline " show as much of the last line as possible
 
-if has("syntax")
-    syntax on
-endif
-
-filetype on
-filetype plugin on
-filetype indent on
+" enable filetype based indents and plugins, and turn on syntax highlighting
+filetype plugin indent on
+syntax on
 
 set hidden " allow hidden buffers, rather than closing
 
@@ -115,13 +111,16 @@ autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highli
 " setup git commits to use the git syntax highlighting
 autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 
+" load matchit
 runtime! macros/matchit.vim
 
 " OmniCppComplete
 let OmniCpp_NamespaceSearch=2
 let OmniCpp_SelectFirstItem=2
 let OmniCpp_LocalSearchDecl=1
-set tags=tags;/
+" no automatic popup.  Use <C-x><C-o> or <Tab> (See CleverTab function)
+let [ OmniCpp_MayCompleteDot, OmniCpp_MayCompleteArrow ] = [ 0, 0 ]
+set tags=tags;~/
 
 " TagList customizations
 let Tlist_Use_Right_Window=1
@@ -130,6 +129,7 @@ let Tlist_Show_One_File=1
 let Tlist_Compact_Format=1
 let Tlist_Process_File_Always=0
 let Tlist_Exit_OnlyWindow=1
+let Tlist_GainFocus_On_ToggleOpen=1
 set updatetime=1000
 au BufEnter __Tag_List__ :setlocal statusline=Tag\ List 
 
@@ -176,7 +176,8 @@ nmap d<C-Down>  <Plug>SpeedDatingNowLocal
 
 " set GUI options (font, color, etc)
 " TODO move this to .gvimrc ?
-set guioptions=aegit
+set guioptions=acegi
+set showtabline=0
 if has("gui_running")
     if has("win32")
         set guifont=Consolas:h10
