@@ -89,13 +89,12 @@ endif
 
 
 " key mappings
-nnoremap <silent> <C-l> :nohl<CR><C-l>
+nnoremap <silent> <C-[> :nohl<CR><C-[>
 nnoremap <silent> <F6> :mak<CR>
 nnoremap <silent> <C-F6> :mak clean<CR>
 nnoremap <silent> <F2> :NERDTreeToggle<CR>
 nnoremap <silent> <F12> :TlistToggle<CR>
 map Y y$
-map zm zz
 
 " Platform specific junk
 if has("win32")
