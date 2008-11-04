@@ -133,6 +133,9 @@ let Tlist_GainFocus_On_ToggleOpen=1
 set updatetime=1000
 au BufEnter __Tag_List__ :setlocal statusline=Tag\ List 
 
+" yankring
+let yankring_history_file='.yankring'
+
 " vcscommand customization
 let VCSCommandEnableBufferSetup=1
 
