@@ -71,7 +71,7 @@ set statusline+=%{strlen(&fenc)?&fenc:&enc}%{&bomb?'/bom':''}, " encoding
 set statusline+=%{&fileformat}]              " file format
 set statusline+=%{exists('loaded_VCSCommand')?VCSCommandGetStatusLine():''} " show vcs status
 set statusline+=%=                           " right align
-set statusline+=\[%{exists('loaded_taglist')?Tlist_Get_Tag_Prototype_By_Line(expand('%'),line('.')):'no\ tags'}]\   " show tag prototype
+"set statusline+=\[%{exists('loaded_taglist')?Tlist_Get_Tag_Prototype_By_Line(expand('%'),line('.')):'no\ tags'}]\   " show tag prototype
 set statusline+=0x%-8B\                      " current char
 set statusline+=%-14.(%l,%c%V%)\ %<%P        " offset
 
@@ -87,14 +87,15 @@ if (&termencoding == "utf-8") || has("gui_running")
     endif
 endif
 
-
 " key mappings
-nnoremap <silent> <C-[> :nohl<CR><C-[>
+nnoremap <silent> <C-l> :nohl<CR>
 nnoremap <silent> <F6> :mak<CR>
 nnoremap <silent> <C-F6> :mak clean<CR>
 nnoremap <silent> <F2> :NERDTreeToggle<CR>
 nnoremap <silent> <F12> :TlistToggle<CR>
 map Y y$
+" from spiiph and jamessan on #vim:
+nnoremap <expr> gf empty(taglist(expand('<cfile>'))) ? "gf" : ":ta <C-r><C-f><CR>"
 
 " Platform specific junk
 if has("win32")
