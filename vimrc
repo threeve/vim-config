@@ -67,7 +67,7 @@ set statusline+=%3.3n\                       " buffer number
 set statusline+=%f\                          " file name
 set statusline+=%h%1*%m%r%w%0*               " flags
 set statusline+=\[%{strlen(&ft)?&ft:'none'}, " filetype
-set statusline+=%{strlen(&fenc)?&fenc:&enc}, " encoding
+set statusline+=%{strlen(&fenc)?&fenc:&enc}%{&bomb?'/bom':''}, " encoding
 set statusline+=%{&fileformat}]              " file format
 set statusline+=%{exists('loaded_VCSCommand')?VCSCommandGetStatusLine():''} " show vcs status
 set statusline+=%=                           " right align
