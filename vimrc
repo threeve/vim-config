@@ -69,7 +69,8 @@ set statusline+=%h%1*%m%r%w%0*               " flags
 set statusline+=\[%{strlen(&ft)?&ft:'none'}, " filetype
 set statusline+=%{strlen(&fenc)?&fenc:&enc}%{&bomb?'/bom':''}, " encoding
 set statusline+=%{&fileformat}]              " file format
-set statusline+=%{exists('loaded_VCSCommand')?VCSCommandGetStatusLine():''} " show vcs status
+"set statusline+=%{exists('loaded_VCSCommand')?VCSCommandGetStatusLine():''} " show vcs status
+set statusline+=%{exists('loaded_scmbag')?SCMbag_Info():''} " show vcs status
 set statusline+=%=                           " right align
 "set statusline+=\[%{exists('loaded_taglist')?Tlist_Get_Tag_Prototype_By_Line(expand('%'),line('.')):'no\ tags'}]\   " show tag prototype
 set statusline+=0x%-8B\                      " current char
