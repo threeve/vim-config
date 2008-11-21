@@ -70,7 +70,7 @@ set statusline+=\[%{strlen(&ft)?&ft:'none'}, " filetype
 set statusline+=%{strlen(&fenc)?&fenc:&enc}%{&bomb?'/bom':''}, " encoding
 set statusline+=%{&fileformat}]              " file format
 "set statusline+=%{exists('loaded_VCSCommand')?VCSCommandGetStatusLine():''} " show vcs status
-set statusline+=%{exists('loaded_scmbag')?SCMbag_Info():''} " show vcs status
+set statusline+=\ %{exists('loaded_scmbag')?SCMbag_Info():''} " show vcs status
 set statusline+=%=                           " right align
 "set statusline+=\[%{exists('loaded_taglist')?Tlist_Get_Tag_Prototype_By_Line(expand('%'),line('.')):'no\ tags'}]\   " show tag prototype
 set statusline+=0x%-8B\                      " current char
@@ -86,6 +86,12 @@ if (&termencoding == "utf-8") || has("gui_running")
     else
         set listchars=tab:»·,trail:·,extends:…,eol:¶
     endif
+endif
+
+" ack >> grep
+if executable('ack')
+    set grepprg=ack
+    set grepformat=%f:%l:%m
 endif
 
 " key mappings
