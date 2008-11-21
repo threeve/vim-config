@@ -96,9 +96,10 @@ endif
 
 " key mappings
 nnoremap <silent> <C-l> :nohl<CR>
+nnoremap <silent> <F1> :YRShow<CR>
+nnoremap <silent> <F2> :NERDTreeToggle<CR>
 nnoremap <silent> <F6> :mak<CR>
 nnoremap <silent> <C-F6> :mak clean<CR>
-nnoremap <silent> <F2> :NERDTreeToggle<CR>
 nnoremap <silent> <F12> :TlistToggle<CR>
 map Y y$
 " from spiiph and jamessan on #vim:
@@ -205,6 +206,8 @@ if has("gui_running")
     hi Todo guifg=#d9db56 guibg=NONE gui=bold
     " better search highlighting.  Less obnoxious than Yellow.
     hi Search guifg=Black guibg=#d9db56
+    " Better Error highlighting than a red block...
+    hi Error guifg=red guibg=NONE gui=underline
 endif
 
 " maximize
@@ -228,8 +231,8 @@ endif
 imap <silent> <C-a> <Home>
 inoremap <silent> <C-e> <End>
 inoremap <silent> <C-k> <C-o>D
-nnoremap <silent> <C-a> 0
-nnoremap <silent> <C-e> $
+nmap <silent> <C-a> <Home>
+nnoremap <silent> <C-e> <End>
 nnoremap <silent> <C-k> D
 
 " http://vim.wikia.com/wiki/Smart_mapping_for_tab_completion
