@@ -1,8 +1,8 @@
 "=============================================================================
 " File: gist.vim
 " Author: Yasuhiro Matsumoto <mattn.jp@gmail.com>
-" Last Change: 10-Nov-2008. Jan 2008
-" Version: 0.8
+" Last Change: 18-Nov-2008. Jan 2008
+" Version: 1.0
 " Usage:
 "
 "   :Gist
@@ -25,6 +25,18 @@
 "
 "   :Gist -la
 "     list gists from all.
+"
+" Tips:
+"   if set g:gist_clip_command, gist.vim will copy the gist code.
+"
+"   # mac
+"   let g:gist_clip_command = 'pbcopy'
+"
+"   # linux
+"   let g:gist_clip_command = 'xclip -selection clipboard'
+"
+"   # others(cygwin?)
+"   let g:gist_clip_command = 'putclip'
 "
 " GetLatestVimScripts: 2423 1 :AutoInstall: gist.vim
 
@@ -79,7 +91,7 @@ function! s:GistList(user, token, gistls)
     let url = 'http://gist.github.com/'.a:gistls
   endif
   exec 'silent split gist:'.a:gistls
-  exec 'silent 0r! curl -s ' url
+  exec 'silent 0r! curl -s '.url
   silent! %s/>/>\r/g
   silent! %s/</\r</g
   silent! %g/<pre/,/<\/pre/join!
@@ -103,9 +115,12 @@ endfunction
 function! s:GistGet(user, token, gistid)
   let url = 'http://gist.github.com/'.a:gistid.'.txt'
   exec 'silent split gist:'.a:gistid
-  exec 'silent 0r! curl -s ' url
+  exec 'silent 0r! curl -s '.url
   setlocal nomodified
   normal! gg
+  if exists('g:gist_clip_command')
+    exec 'silent w !'.g:gist_clip_command
+  endif
 endfunction
 
 function! s:GistListAction()
@@ -140,7 +155,7 @@ function! s:GistPut(user, token, content, private)
   unlet query
 
   let file = tempname()
-  exec 'redir! > ' . file 
+  exec 'redir! > '.file 
   silent echo squery
   redir END
   echon " Posting it to gist... "
@@ -165,7 +180,7 @@ function! Gist(line1, line2, ...)
   let private = ''
   let gistid = ''
   let gistls = ''
-  let listmx = '^\(-l\|--list\)\s*\(\w\+\)\?$'
+  let listmx = '^\(-l\|--list\)\s*\([^\s]\+\)\?$'
   if opt =~ '^\(-la\|--listall\)'
     let gistls = '-all'
   elseif opt =~ listmx
