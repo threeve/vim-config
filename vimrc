@@ -19,8 +19,8 @@ set incsearch
 set ignorecase
 set smartcase
 set infercase " better case handling for insert mode completion
-set hlsearch " turn on search match highlighting...
-nohl " ...but turn it off immediately, in case reloading.
+set nohlsearch " turn OFF search match highlighting...
+"nohl " ...but turn it off immediately, in case reloading.
 
 " buffer control
 set switchbuf=usetab
