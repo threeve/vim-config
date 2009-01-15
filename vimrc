@@ -167,6 +167,7 @@ let g:doxygen_enhanced_color=0
 let g:doxygen_my_rendering=1
 
 " FuzzyFinder
+let g:fuzzy_ignore = "*.d;*.o" " for FuzzyFinderTextMate
 nnoremap <silent> <Leader>fw :FuzzyFinderBuffer<CR>
 nnoremap <silent> <Leader>ff :FuzzyFinderFile<CR>
 nnoremap <silent> <Leader>fd :FuzzyFinderDir<CR>
