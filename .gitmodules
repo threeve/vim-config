@@ -10,3 +10,9 @@
 [submodule "bundle/scmbag"]
 	path = bundle/scmbag
 	url = ssh://threeve@threeve.org/~/git/vim-scmbag.git
+[submodule "bundle/nerdcommenter"]
+	path = bundle/nerdcommenter
+	url = git://github.com/scrooloose/nerdcommenter.git
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
