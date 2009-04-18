@@ -3,9 +3,9 @@ scriptencoding utf-8
 set nocp    " we use vim, not vi
 
 " use ~/.vim on Windows too.
-if has("win32")
-    let &runtimepath = substitute(&runtimepath,'\(\~\|jason\|jforeman\)/vimfiles\>','\1/.vim','g')
-endif
+"if has("win32")
+    "let &runtimepath = substitute(&runtimepath,'\(\~\|jason\|jforeman\)/vimfiles\>','\1/.vim','g')
+"endif
 " adds .vim/bundle/* to runtimepath
 silent! call pathogen#runtime_append_all_bundles()
 
@@ -20,7 +20,7 @@ set ignorecase
 set smartcase
 set infercase " better case handling for insert mode completion
 set nohlsearch " turn OFF search match highlighting...
-"nohl " ...but turn it off immediately, in case reloading.
+nohl " ...but turn it off immediately, in case reloading.
 
 " buffer control
 set switchbuf=usetab
@@ -116,9 +116,9 @@ if has("gui_running") && has("gui_macvim")
     ino <silent> <D-w> <C-o>:bd<cr>
 endif
 
-autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highlighting (full)
+"autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highlighting (full)
 " setup git commits to use the git syntax highlighting
-autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
+"autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 
 " load matchit
 runtime! macros/matchit.vim
@@ -216,7 +216,6 @@ if has("gui_running")
     if has("win32")
         au GUIEnter * simalt ~x
     elseif has("mac")
-        " TODO
         let script='osascript -e "tell application \"MacVim\""'
                     \ . ' -e "set zoomed of first window to true"'
                     \ . ' -e "end tell"'
@@ -329,10 +328,10 @@ vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
 vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 
 " Regenerate help files
-helptags ~/.vim/doc/
-for d in pathogen#glob_directories('~/.vim/bundle/**/doc')
-    exec 'helptags ' . d
-endfor
+"helptags ~/.vim/doc/
+"for d in pathogen#glob_directories('~/.vim/bundle/**/doc')
+"    exec 'helptags ' . d
+"endfor
 
 " read host local vimrc if available
 if filereadable(expand("~/.vimrc.local"))
