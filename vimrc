@@ -8,6 +8,7 @@ set nocp    " we use vim, not vi
 "endif
 " adds .vim/bundle/* to runtimepath
 silent! call pathogen#runtime_append_all_bundles()
+silent! call pathogen#helptags()
 
 set noswapfile " do not want
 set nobackup   " do not want
@@ -31,10 +32,6 @@ set scrolloff=3 " show 3 lines of context when scrolling
 set backspace=eol,start,indent " backspace crosses newlines?
 set whichwrap+=<>[]
 set display=lastline " show as much of the last line as possible
-
-" enable filetype based indents and plugins, and turn on syntax highlighting
-filetype plugin indent on
-syntax on
 
 set hidden " allow hidden buffers, rather than closing
 
@@ -156,15 +153,22 @@ let DrChipTopLvlMenu="&Plugin."
 
 " Syntax customizations
 let g:is_posix=1
-let g:c_gnu=0
+let g:c_gnu=1
 let g:c_space_errors=0
 let g:c_curly_error=0
+let g:c_no_bracket_error=1
+let g:objc_syntax_for_h=1
+let filetype_m='objc'
 set cinoptions=g1,h3,t0,(0,W4
 
 " TODO enable doxygen syntax when fix color scheme
 let g:load_doxygen_syntax=1
 let g:doxygen_enhanced_color=0
 let g:doxygen_my_rendering=1
+
+" enable filetype based indents and plugins, and turn on syntax highlighting
+filetype plugin indent on
+syntax on
 
 " FuzzyFinder
 let g:fuzzy_ignore = "*.d;*.o" " for FuzzyFinderTextMate
@@ -202,7 +206,8 @@ if has("gui_running")
         set guifont=Consolas\ 12,Courier\ 12
         set linespace=1
     endif
-    colorscheme wombat
+    "colorscheme wombat
+    colorscheme manuscript
     " better TODO highlighting.  The default bright-ass yellow bg is not fun.
     hi Todo guifg=#d9db56 guibg=NONE gui=bold
     " better search highlighting.  Less obnoxious than Yellow.
