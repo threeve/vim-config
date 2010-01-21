@@ -109,6 +109,7 @@ if has("win32")
 endif
 if has("gui_running") && has("gui_macvim")
     macmenu File.Close key=<nop>
+    macmenu Tools.Make key=<nop>
     no <silent> <D-w> :bd<cr>
     ino <silent> <D-w> <C-o>:bd<cr>
 endif
@@ -171,7 +172,8 @@ filetype plugin indent on
 syntax on
 
 " FuzzyFinder
-let g:fuzzy_ignore = "*.d;*.o" " for FuzzyFinderTextMate
+let g:fuzzy_ignore = "*.d;*.o;build/**/*" " for FuzzyFinderTextMate
+"let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|sw[po])$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|^build($|[/\\])'
 nnoremap <silent> <Leader>fw :FuzzyFinderBuffer<CR>
 nnoremap <silent> <Leader>ff :FuzzyFinderFile<CR>
 nnoremap <silent> <Leader>fd :FuzzyFinderDir<CR>
@@ -207,7 +209,8 @@ if has("gui_running")
         set linespace=1
     endif
     "colorscheme wombat
-    colorscheme manuscript
+    "colorscheme manuscript
+    colorscheme grb3
     " better TODO highlighting.  The default bright-ass yellow bg is not fun.
     hi Todo guifg=#d9db56 guibg=NONE gui=bold
     " better search highlighting.  Less obnoxious than Yellow.
