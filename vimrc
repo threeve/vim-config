@@ -32,8 +32,13 @@ set scrolloff=3 " show 3 lines of context when scrolling
 set backspace=eol,start,indent " backspace crosses newlines?
 set whichwrap+=<>[]
 set display=lastline " show as much of the last line as possible
+set showmatch
+set matchtime=2
 
 set hidden " allow hidden buffers, rather than closing
+
+set foldmethod=syntax
+set foldlevelstart=99
 
 set wildchar=<TAB>
 set wildmenu
@@ -45,6 +50,8 @@ set completeopt=longest,menu,preview " happy completion style
 set autoindent
 set autoread " automatically reload files changed outside Vim
 set autowrite " automatically write files when doing things like :make
+set modeline
+set modelines=5
 
 " use 4 space tabs and indents
 set tabstop=4
@@ -58,6 +65,11 @@ set showcmd
 set showfulltag
 set shortmess+=ts
 
+"""" Text Formatting
+set formatoptions=q         " Format text with gq, but don't format as I type.
+set formatoptions+=n        " gq recognizes numbered lists, and will try to
+set formatoptions+=1        " break before, not after, a 1 letter word
+
 " Configure a nice status line (based on jamessan's?)
 set statusline=
 set statusline+=%3.3n\                       " buffer number
@@ -68,10 +80,15 @@ set statusline+=%{strlen(&fenc)?&fenc:&enc}%{&bomb?'/bom':''}, " encoding
 set statusline+=%{&fileformat}]              " file format
 "set statusline+=%{exists('loaded_VCSCommand')?VCSCommandGetStatusLine():''} " show vcs status
 set statusline+=\ %{exists('loaded_scmbag')?SCMbag_Info():''} " show vcs status
+
+set statusline+=\ %{synIDattr(synIDtrans(synID(line('.'),col('.'),1)),'name')}
+
 set statusline+=%=                           " right align
 "set statusline+=\[%{exists('loaded_taglist')?Tlist_Get_Tag_Prototype_By_Line(expand('%'),line('.')):'no\ tags'}]\   " show tag prototype
 set statusline+=0x%-8B\                      " current char
 set statusline+=%-14.(%l,%c%V%)\ %<%P        " offset
+
+"
 
 set number
 
@@ -80,10 +97,14 @@ set encoding=utf-8
 if (&termencoding == "utf-8") || has("gui_running")
     if v:version >= 700
         set listchars=tab:»·,trail:·,extends:…,eol:¶
+        let &showbreak=nr2char(8618).nr2char(8901).nr2char(8901).nr2char(8901).nr2char(8901).nr2char(8901).nr2char(8901).nr2char(8901).nr2char(8901)
     else
         set listchars=tab:»·,trail:·,extends:…,eol:¶
     endif
 endif
+set cpoptions+=n
+
+set vb t_vb=
 
 " ack >> grep
 if executable('ack')
@@ -121,6 +142,9 @@ endif
 " load matchit
 runtime! macros/matchit.vim
 
+let no_buffers_menu=1       " Disable gvim 'Buffers' menu
+let surround_indent=1       " Automatically reindent text surround.vim actions
+
 " OmniCppComplete
 let OmniCpp_NamespaceSearch=2
 let OmniCpp_SelectFirstItem=2
@@ -128,6 +152,8 @@ let OmniCpp_LocalSearchDecl=1
 " no automatic popup.  Use <C-x><C-o> or <Tab> (See CleverTab function)
 let [ OmniCpp_MayCompleteDot, OmniCpp_MayCompleteArrow ] = [ 0, 0 ]
 set tags=tags;~/
+set cscopetag               " When using :tag, <C-]>, or "vim -t", try cscope:
+set cscopetagorder=0        " try ":cscope find g foo" and then ":tselect foo"
 
 " TagList customizations
 let Tlist_Use_Right_Window=1
@@ -153,26 +179,33 @@ let NERDShutUp=1 " no more f*cking 'unknown filetype' warnings!
 let DrChipTopLvlMenu="&Plugin."
 
 " Syntax customizations
-let g:is_posix=1
-let g:c_gnu=1
-let g:c_space_errors=0
-let g:c_curly_error=0
-let g:c_no_bracket_error=1
-let g:objc_syntax_for_h=1
+let is_posix=1
+let c_gnu=1
+let c_space_errors=1
+let c_curly_error=0
+let c_no_bracket_error=1
+let objc_syntax_for_h=1
 let filetype_m='objc'
 set cinoptions=g1,h3,t0,(0,W4
 
 " TODO enable doxygen syntax when fix color scheme
-let g:load_doxygen_syntax=1
-let g:doxygen_enhanced_color=0
-let g:doxygen_my_rendering=1
+let load_doxygen_syntax=1
+let doxygen_enhanced_color=1
+let doxygen_my_rendering=0
 
 " enable filetype based indents and plugins, and turn on syntax highlighting
 filetype plugin indent on
 syntax on
 
+" auto-enable doxygen highlighting for Obj-C/C++ files.
+au Syntax objc,objcpp
+        \ if (exists('b:load_doxygen_syntax') && b:load_doxygen_syntax)
+        \       || (exists('g:load_doxygen_syntax') && g:load_doxygen_syntax)
+        \   | runtime! syntax/doxygen.vim
+        \ | endif
+
 " FuzzyFinder
-let g:fuzzy_ignore = "*.d;*.o;build/**/*" " for FuzzyFinderTextMate
+let fuzzy_ignore = "*.d;*.o;build/**/*" " for FuzzyFinderTextMate
 "let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|sw[po])$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|^build($|[/\\])'
 nnoremap <silent> <Leader>fw :FuzzyFinderBuffer<CR>
 nnoremap <silent> <Leader>ff :FuzzyFinderFile<CR>
@@ -183,11 +216,11 @@ nnoremap <silent> <Leader>fk :FuzzyFinderMruCmd<CR>
 nnoremap <silent> <Leader>fm :FuzzyFinderMruFile<CR>
 
 " snippetsEmu
-let g:snippetsEmu_key="<C-L>"
-let g:snippetsEmu_menu = "&Plugin."
+let snippetsEmu_key="<C-L>"
+let snippetsEmu_menu = "&Plugin."
 
 " speeddating
-let g:speeddating_no_mappings=1
+let speeddating_no_mappings=1
 nmap  <C-Up>    <Plug>SpeedDatingUp
 nmap  <C-Down>  <Plug>SpeedDatingDown
 xmap  <C-Up>    <Plug>SpeedDatingUp
@@ -210,13 +243,13 @@ if has("gui_running")
     endif
     "colorscheme wombat
     "colorscheme manuscript
-    colorscheme grb3
+    colorscheme jf_black
     " better TODO highlighting.  The default bright-ass yellow bg is not fun.
     hi Todo guifg=#d9db56 guibg=NONE gui=bold
     " better search highlighting.  Less obnoxious than Yellow.
     hi Search guifg=Black guibg=#d9db56
     " Better Error highlighting than a red block...
-    hi Error guifg=red guibg=NONE gui=underline
+    "hi Error guifg=red guibg=NONE gui=underline
 endif
 
 " maximize
@@ -257,6 +290,7 @@ function! CleverTab()
   endif
 endfunction
 inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
+let SuperTabMappingForward="<tab>"
 
 " hitting enter with completion open selects the completion and closes preview
 inoremap <silent> <expr> <CR> pumvisible() ? "\<C-Y>\<C-O>\<C-W>z" : "\<CR>"
@@ -277,7 +311,7 @@ function! s:RegenerateTags()
     let tags = []
     " use the ctags found by taglist if it exists
     if exists('g:Tlist_Ctags_Cmd')
-        let ctags = g:Tlist_Ctags_Cmd
+        let ctags = Tlist_Ctags_Cmd
     else
         let ctags = 'ctags'
     endif
