@@ -149,7 +149,7 @@ let surround_indent=1       " Automatically reindent text surround.vim actions
 let OmniCpp_NamespaceSearch=2
 let OmniCpp_SelectFirstItem=2
 let OmniCpp_LocalSearchDecl=1
-" no automatic popup.  Use <C-x><C-o> or <Tab> (See CleverTab function)
+" no automatic popup.  Use <C-x><C-o> or <Tab>
 let [ OmniCpp_MayCompleteDot, OmniCpp_MayCompleteArrow ] = [ 0, 0 ]
 set tags=tags;~/
 set cscopetag               " When using :tag, <C-]>, or "vim -t", try cscope:
@@ -276,23 +276,8 @@ nmap <silent> <C-a> <Home>
 nnoremap <silent> <C-e> <End>
 nnoremap <silent> <C-k> D
 
-" http://vim.wikia.com/wiki/Smart_mapping_for_tab_completion
-function! CleverTab()
-  if pumvisible()
-    return "\<C-N>"
-  endif
-  if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-    return "\<Tab>"
-  elseif exists('&omnifunc') && &omnifunc != ''
-    return "\<C-X>\<C-O>"
-  else
-    return "\<C-N>"
-  endif
-endfunction
-inoremap <silent> <Tab> <C-R>=CleverTab()<CR>
-let SuperTabMappingForward="<tab>"
-
 " hitting enter with completion open selects the completion and closes preview
+" TODO do these really work like I think they do?
 inoremap <silent> <expr> <CR> pumvisible() ? "\<C-Y>\<C-O>\<C-W>z" : "\<CR>"
 inoremap <silent> <expr> <S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
 
