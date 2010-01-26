@@ -19,7 +19,7 @@ set lazyredraw
 set incsearch
 set ignorecase
 set smartcase
-set infercase " better case handling for insert mode completion
+"set infercase " better case handling for insert mode completion
 set nohlsearch " turn OFF search match highlighting...
 nohl " ...but turn it off immediately, in case reloading.
 
@@ -45,7 +45,8 @@ set wildmenu
 set wildmode=longest:full,full " complete longest match, showing list, then cycle through full matches
 set wildignore=*.o,*.obj,*.bak,*.exe,*.so,*~
 
-set completeopt=longest,menu,preview " happy completion style
+"set completeopt=longest,menu,preview " happy completion style
+set completeopt=menu,preview " happy completion style
 
 set autoindent
 set autoread " automatically reload files changed outside Vim
@@ -69,26 +70,6 @@ set shortmess+=ts
 set formatoptions=q         " Format text with gq, but don't format as I type.
 set formatoptions+=n        " gq recognizes numbered lists, and will try to
 set formatoptions+=1        " break before, not after, a 1 letter word
-
-" Configure a nice status line (based on jamessan's?)
-set statusline=
-set statusline+=%3.3n\                       " buffer number
-set statusline+=%f\                          " file name
-set statusline+=%h%1*%m%r%w%0*               " flags
-set statusline+=\[%{strlen(&ft)?&ft:'none'}, " filetype
-set statusline+=%{strlen(&fenc)?&fenc:&enc}%{&bomb?'/bom':''}, " encoding
-set statusline+=%{&fileformat}]              " file format
-"set statusline+=%{exists('loaded_VCSCommand')?VCSCommandGetStatusLine():''} " show vcs status
-set statusline+=\ %{exists('loaded_scmbag')?SCMbag_Info():''} " show vcs status
-
-set statusline+=\ %{synIDattr(synIDtrans(synID(line('.'),col('.'),1)),'name')}
-
-set statusline+=%=                           " right align
-"set statusline+=\[%{exists('loaded_taglist')?Tlist_Get_Tag_Prototype_By_Line(expand('%'),line('.')):'no\ tags'}]\   " show tag prototype
-set statusline+=0x%-8B\                      " current char
-set statusline+=%-14.(%l,%c%V%)\ %<%P        " offset
-
-"
 
 set number
 
@@ -275,6 +256,8 @@ inoremap <silent> <C-k> <C-o>D
 nmap <silent> <C-a> <Home>
 nnoremap <silent> <C-e> <End>
 nnoremap <silent> <C-k> D
+map j gj
+map k gk
 
 " hitting enter with completion open selects the completion and closes preview
 " TODO do these really work like I think they do?
