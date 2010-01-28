@@ -45,8 +45,8 @@ set wildmenu
 set wildmode=longest:full,full " complete longest match, showing list, then cycle through full matches
 set wildignore=*.o,*.obj,*.bak,*.exe,*.so,*~
 
-"set completeopt=longest,menu,preview " happy completion style
-set completeopt=menu,preview " happy completion style
+set completeopt=longest,menu,preview " happy completion style
+"set completeopt=menu,preview " happy completion style
 
 set autoindent
 set autoread " automatically reload files changed outside Vim
@@ -102,7 +102,7 @@ nnoremap <silent> <C-F6> :mak clean<CR>
 nnoremap <silent> <F12> :TlistToggle<CR>
 map Y y$
 " from spiiph and jamessan on #vim:
-nnoremap <expr> gf empty(taglist(expand('<cfile>'))) ? "gf" : ":ta <C-r><C-f><CR>"
+"nnoremap <expr> gf empty(taglist(expand('<cfile>'))) ? "gf" : ":ta <C-r><C-f><CR>"
 
 " Platform specific junk
 if has("win32")
@@ -133,8 +133,8 @@ let OmniCpp_LocalSearchDecl=1
 " no automatic popup.  Use <C-x><C-o> or <Tab>
 let [ OmniCpp_MayCompleteDot, OmniCpp_MayCompleteArrow ] = [ 0, 0 ]
 set tags=tags;~/
-set cscopetag               " When using :tag, <C-]>, or "vim -t", try cscope:
-set cscopetagorder=0        " try ":cscope find g foo" and then ":tselect foo"
+"set cscopetag               " When using :tag, <C-]>, or "vim -t", try cscope:
+"set cscopetagorder=0        " try ":cscope find g foo" and then ":tselect foo"
 
 " TagList customizations
 let Tlist_Use_Right_Window=1
@@ -177,6 +177,9 @@ let doxygen_my_rendering=0
 " enable filetype based indents and plugins, and turn on syntax highlighting
 filetype plugin indent on
 syntax on
+
+" supertab config
+let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 
 " auto-enable doxygen highlighting for Obj-C/C++ files.
 au Syntax objc,objcpp
@@ -279,7 +282,7 @@ function! s:RegenerateTags()
     let tags = []
     " use the ctags found by taglist if it exists
     if exists('g:Tlist_Ctags_Cmd')
-        let ctags = Tlist_Ctags_Cmd
+        let ctags = g:Tlist_Ctags_Cmd
     else
         let ctags = 'ctags'
     endif
@@ -336,6 +339,18 @@ function! s:VSetSearch()
 endfunction
 vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
 vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
+
+"define :HighlightLongLines command to highlight the offending parts of
+"lines that are longer than the specified length (defaulting to 80)
+command! -nargs=? HighlightLongLines call s:HighlightLongLines('<args>')
+function! s:HighlightLongLines(width)
+    let targetWidth = a:width != '' ? a:width : 79
+    if targetWidth > 0
+        exec 'match Todo /\%>' . (targetWidth) . 'v/'
+    else
+        echomsg "Usage: HighlightLongLines [natural number]"
+    endif
+endfunction
 
 " Regenerate help files
 "helptags ~/.vim/doc/
