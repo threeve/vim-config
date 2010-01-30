@@ -72,13 +72,15 @@ set formatoptions+=n        " gq recognizes numbered lists, and will try to
 set formatoptions+=1        " break before, not after, a 1 letter word
 
 set number
+set numberwidth=4
 
 set encoding=utf-8
 " nicer looking tabs and whitespace
 if (&termencoding == "utf-8") || has("gui_running")
     if v:version >= 700
         set listchars=tab:»·,trail:·,extends:…,eol:¶
-        let &showbreak=nr2char(8618).nr2char(8901).nr2char(8901).nr2char(8901).nr2char(8901).nr2char(8901).nr2char(8901).nr2char(8901).nr2char(8901)
+        "let &showbreak=nr2char(8618).'   '
+        let &showbreak='->  '
     else
         set listchars=tab:»·,trail:·,extends:…,eol:¶
     endif
@@ -188,8 +190,12 @@ au Syntax objc,objcpp
         \   | runtime! syntax/doxygen.vim
         \ | endif
 
+" lookup modules in OCaml online documentation
+au BufRead,BufNewFile *.ml set keywordprg=~/.vim/scripts/ocaml_doc.sh
+
 " FuzzyFinder
 let fuzzy_ignore = "*.d;*.o;build/**/*" " for FuzzyFinderTextMate
+let g:fuzzy_matching_limit=1000
 "let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|sw[po])$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|^build($|[/\\])'
 nnoremap <silent> <Leader>fw :FuzzyFinderBuffer<CR>
 nnoremap <silent> <Leader>ff :FuzzyFinderFile<CR>
