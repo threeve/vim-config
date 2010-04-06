@@ -34,6 +34,7 @@ set whichwrap+=<>[]
 set display=lastline " show as much of the last line as possible
 set showmatch
 set matchtime=2
+set timeout timeoutlen=3000 ttimeoutlen=100 " adjust map/key timeouts
 
 set hidden " allow hidden buffers, rather than closing
 
@@ -103,6 +104,10 @@ nnoremap <silent> <F6> :mak<CR>
 nnoremap <silent> <C-F6> :mak clean<CR>
 nnoremap <silent> <F12> :TlistToggle<CR>
 map Y y$
+
+" open help on bottom
+cnoreabbrev h bot h
+
 " from spiiph and jamessan on #vim:
 "nnoremap <expr> gf empty(taglist(expand('<cfile>'))) ? "gf" : ":ta <C-r><C-f><CR>"
 
