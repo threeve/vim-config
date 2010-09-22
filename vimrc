@@ -7,6 +7,8 @@ set nocp    " we use vim, not vi
     "let &runtimepath = substitute(&runtimepath,'\(\~\|jason\|jforeman\)/vimfiles\>','\1/.vim','g')
 "endif
 " adds .vim/bundle/* to runtimepath
+
+filetype off " to support pathogen loading ftdetect files, comes back on later
 silent! call pathogen#runtime_append_all_bundles()
 silent! call pathogen#helptags()
 
@@ -117,10 +119,10 @@ if has("win32")
     set winaltkeys=no   " <ALT> is mappable
 endif
 if has("gui_running") && has("gui_macvim")
-    macmenu File.Close key=<nop>
-    macmenu Tools.Make key=<nop>
-    no <silent> <D-w> :bd<cr>
-    ino <silent> <D-w> <C-o>:bd<cr>
+    "macmenu File.Close key=<nop>
+    "macmenu Tools.Make key=<nop>
+    "no <silent> <D-w> :bd<cr>
+    "ino <silent> <D-w> <C-o>:bd<cr>
 endif
 
 "autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highlighting (full)
