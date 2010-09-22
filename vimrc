@@ -204,13 +204,12 @@ au BufRead,BufNewFile *.ml set keywordprg=~/.vim/scripts/ocaml_doc.sh
 let fuzzy_ignore = "*.d;*.o;build/**/*" " for FuzzyFinderTextMate
 let g:fuzzy_matching_limit=1000
 "let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|sw[po])$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|^build($|[/\\])'
-nnoremap <silent> <Leader>fw :FuzzyFinderBuffer<CR>
-nnoremap <silent> <Leader>ff :FuzzyFinderFile<CR>
-nnoremap <silent> <Leader>fd :FuzzyFinderDir<CR>
-nnoremap <silent> <Leader>fj :FuzzyFinderTextMate<CR>
-nnoremap <silent> <Leader>ft :FuzzyFinderTag<CR>
-nnoremap <silent> <Leader>fk :FuzzyFinderMruCmd<CR>
-nnoremap <silent> <Leader>fm :FuzzyFinderMruFile<CR>
+nnoremap <silent> <Leader>fw :FufBuffer<CR>
+nnoremap <silent> <Leader>fj :FufFile<CR>
+nnoremap <silent> <Leader>fd :FufDir<CR>
+nnoremap <silent> <Leader>ft :FufTag<CR>
+"nnoremap <silent> <Leader>fk :FufMruCmd<CR>
+"nnoremap <silent> <Leader>fm :FuzzyFinderMruFile<CR>
 
 " snippetsEmu
 let snippetsEmu_key="<C-L>"
