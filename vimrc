@@ -1,6 +1,7 @@
 scriptencoding utf-8
 
 set nocp    " we use vim, not vi
+set modelines=0 " practice safe vimming
 
 " use ~/.vim on Windows too.
 "if has("win32")
@@ -12,10 +13,21 @@ filetype off " to support pathogen loading ftdetect files, comes back on later
 silent! call pathogen#runtime_append_all_bundles()
 silent! call pathogen#helptags()
 
-set noswapfile " do not want
-set nobackup   " do not want
+" put backups and swap files somewhere out of the way
+set backupdir=~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.tmp,~/tmp,/var/tmp,/tmp
+
+set swapfile " do want
+set backup   " do want
+
+" persist undo across launches, vim 7.3+
+if has('persistent_undo')
+    set undodir=~/.tmp,~/tmp,/var/tmp,/tmp
+    set undofile
+endif
 
 set lazyredraw
+set ttyfast
 
 " use incremental, highlighting, smart case-insensitive search
 set incsearch
@@ -46,6 +58,7 @@ set foldlevelstart=99
 set wildchar=<TAB>
 set wildmenu
 set wildmode=longest:full,full " complete longest match, showing list, then cycle through full matches
+"set wildmode=longest,list,full
 set wildignore=*.o,*.obj,*.bak,*.exe,*.so,*~
 
 set completeopt=longest,menu,preview " happy completion style
@@ -78,6 +91,7 @@ set number
 set numberwidth=4
 
 set encoding=utf-8
+
 " nicer looking tabs and whitespace
 if (&termencoding == "utf-8") || has("gui_running")
     if v:version >= 700
@@ -91,6 +105,8 @@ endif
 set cpoptions+=n
 
 set vb t_vb=
+
+let mapleader=","
 
 " ack >> grep
 if executable('ack')
@@ -106,6 +122,9 @@ nnoremap <silent> <F6> :mak<CR>
 nnoremap <silent> <C-F6> :mak clean<CR>
 nnoremap <silent> <F12> :TlistToggle<CR>
 map Y y$
+
+" no Ex mode, reformat instead
+map Q gq
 
 " open help on bottom
 cnoreabbrev h bot h
@@ -208,6 +227,7 @@ nnoremap <silent> <Leader>fw :FufBuffer<CR>
 nnoremap <silent> <Leader>fj :FufFile<CR>
 nnoremap <silent> <Leader>fd :FufDir<CR>
 nnoremap <silent> <Leader>ft :FufTag<CR>
+nnoremap <silent> <Leader>fq :FufQuickfix<CR>
 "nnoremap <silent> <Leader>fk :FufMruCmd<CR>
 "nnoremap <silent> <Leader>fm :FuzzyFinderMruFile<CR>
 
