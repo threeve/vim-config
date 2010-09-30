@@ -383,12 +383,6 @@ function! s:HighlightLongLines(width)
     endif
 endfunction
 
-" Regenerate help files
-"helptags ~/.vim/doc/
-"for d in pathogen#glob_directories('~/.vim/bundle/**/doc')
-"    exec 'helptags ' . d
-"endfor
-
 " read host local vimrc if available
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
