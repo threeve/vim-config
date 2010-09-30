@@ -9,7 +9,6 @@ set modelines=0 " practice safe vimming
 "endif
 " adds .vim/bundle/* to runtimepath
 
-filetype off " to support pathogen loading ftdetect files, comes back on later
 silent! call pathogen#runtime_append_all_bundles()
 silent! call pathogen#helptags()
 
