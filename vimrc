@@ -2,6 +2,7 @@ scriptencoding utf-8
 
 set nocp    " we use vim, not vi
 set modelines=0 " practice safe vimming
+set nomodeline
 
 " use ~/.vim on Windows too.
 "if has("win32")
@@ -15,7 +16,6 @@ silent! call pathogen#helptags()
 " put backups and swap files somewhere out of the way
 set backupdir=~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.tmp,~/tmp,/var/tmp,/tmp
-
 set swapfile " do want
 set backup   " do want
 
@@ -58,7 +58,7 @@ set wildchar=<TAB>
 set wildmenu
 set wildmode=longest:full,full " complete longest match, showing list, then cycle through full matches
 "set wildmode=longest,list,full
-set wildignore=*.o,*.obj,*.bak,*.exe,*.so,*~
+set wildignore=*.o,*.obj,*.bak,*.exe,*.so,*~,build/*,.DS_Store
 
 set completeopt=longest,menu,preview " happy completion style
 "set completeopt=menu,preview " happy completion style
@@ -66,8 +66,6 @@ set completeopt=longest,menu,preview " happy completion style
 set autoindent
 set autoread " automatically reload files changed outside Vim
 set autowrite " automatically write files when doing things like :make
-set modeline
-set modelines=5
 
 " use 4 space tabs and indents
 set tabstop=4
@@ -91,17 +89,19 @@ set numberwidth=4
 
 set encoding=utf-8
 
+set clipboard=unnamed
+
 " nicer looking tabs and whitespace
 if (&termencoding == "utf-8") || has("gui_running")
     if v:version >= 700
         set listchars=tab:»·,trail:·,extends:…,eol:¶
         "let &showbreak=nr2char(8618).'   '
-        let &showbreak='->  '
+        "let &showbreak='->  '
     else
         set listchars=tab:»·,trail:·,extends:…,eol:¶
     endif
 endif
-set cpoptions+=n
+set cpoptions+=$
 
 set vb t_vb=
 
@@ -219,9 +219,7 @@ au Syntax objc,objcpp
 au BufRead,BufNewFile *.ml set keywordprg=~/.vim/scripts/ocaml_doc.sh
 
 " FuzzyFinder
-let fuzzy_ignore = "*.d;*.o;build/**/*" " for FuzzyFinderTextMate
-let g:fuzzy_matching_limit=1000
-"let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|sw[po])$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|^build($|[/\\])'
+let g:fuf_file_exclude = '\v\~$|\.(o|exe|dll|bak|sw[po])$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|^build($|[/\\])'
 nnoremap <silent> <Leader>fw :FufBuffer<CR>
 nnoremap <silent> <Leader>fj :FufFile<CR>
 nnoremap <silent> <Leader>fd :FufDir<CR>
@@ -243,9 +241,12 @@ xmap  <C-Down>  <Plug>SpeedDatingDown
 nmap d<C-Up>    <Plug>SpeedDatingNowUTC
 nmap d<C-Down>  <Plug>SpeedDatingNowLocal
 
+" CommandT
+let g:CommandTMaxHeight=30
+
 " set GUI options (font, color, etc)
 " TODO move this to .gvimrc ?
-set guioptions=acegi
+set guioptions=aAcegi
 set showtabline=0
 if has("gui_running")
     if has("win32")
@@ -256,9 +257,9 @@ if has("gui_running")
         set guifont=Consolas\ 12,Courier\ 12
         set linespace=1
     endif
-    "colorscheme wombat
+    colorscheme wombat
     "colorscheme manuscript
-    colorscheme jf_black
+    "colorscheme jf_black
     " better TODO highlighting.  The default bright-ass yellow bg is not fun.
     hi Todo guifg=#d9db56 guibg=NONE gui=bold
     " better search highlighting.  Less obnoxious than Yellow.
