@@ -32,9 +32,8 @@ set ttyfast
 set incsearch
 set ignorecase
 set smartcase
-"set infercase " better case handling for insert mode completion
 set nohlsearch " turn OFF search match highlighting...
-nohl " ...but turn it off immediately, in case reloading.
+nohl " ...and turn it off immediately, in case reloading.
 
 " buffer control
 set switchbuf=usetab
@@ -128,24 +127,11 @@ map Q gq
 " open help on bottom
 cnoreabbrev h bot h
 
-" from spiiph and jamessan on #vim:
-"nnoremap <expr> gf empty(taglist(expand('<cfile>'))) ? "gf" : ":ta <C-r><C-f><CR>"
-
 " Platform specific junk
 if has("win32")
     set shellslash      " Use / instead of \
     set winaltkeys=no   " <ALT> is mappable
 endif
-if has("gui_running") && has("gui_macvim")
-    "macmenu File.Close key=<nop>
-    "macmenu Tools.Make key=<nop>
-    "no <silent> <D-w> :bd<cr>
-    "ino <silent> <D-w> <C-o>:bd<cr>
-endif
-
-"autocmd BufEnter * :syntax sync fromstart " ensure every file does syntax highlighting (full)
-" setup git commits to use the git syntax highlighting
-"autocmd BufNewFile,BufRead COMMIT_EDITMSG set filetype=gitcommit
 
 " load matchit
 runtime! macros/matchit.vim
@@ -160,8 +146,6 @@ let OmniCpp_LocalSearchDecl=1
 " no automatic popup.  Use <C-x><C-o> or <Tab>
 let [ OmniCpp_MayCompleteDot, OmniCpp_MayCompleteArrow ] = [ 0, 0 ]
 set tags=tags;~/
-"set cscopetag               " When using :tag, <C-]>, or "vim -t", try cscope:
-"set cscopetagorder=0        " try ":cscope find g foo" and then ":tselect foo"
 
 " TagList customizations
 let Tlist_Use_Right_Window=1
@@ -196,7 +180,6 @@ let objc_syntax_for_h=1
 let filetype_m='objc'
 set cinoptions=g1,h3,t0,(0,W4
 
-" TODO enable doxygen syntax when fix color scheme
 let load_doxygen_syntax=1
 let doxygen_enhanced_color=1
 let doxygen_my_rendering=0
@@ -225,8 +208,6 @@ nnoremap <silent> <Leader>fj :FufFile<CR>
 nnoremap <silent> <Leader>fd :FufDir<CR>
 nnoremap <silent> <Leader>ft :FufTag<CR>
 nnoremap <silent> <Leader>fq :FufQuickfix<CR>
-"nnoremap <silent> <Leader>fk :FufMruCmd<CR>
-"nnoremap <silent> <Leader>fm :FuzzyFinderMruFile<CR>
 
 " snippetsEmu
 let snippetsEmu_key="<C-L>"
@@ -242,7 +223,7 @@ nmap d<C-Up>    <Plug>SpeedDatingNowUTC
 nmap d<C-Down>  <Plug>SpeedDatingNowLocal
 
 " CommandT
-let g:CommandTMaxHeight=30
+let g:CommandTMaxHeight=10
 
 " set GUI options (font, color, etc)
 " TODO move this to .gvimrc ?
