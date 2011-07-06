@@ -40,3 +40,6 @@
 [submodule "bundle/threesome"]
 	path = bundle/threesome
 	url = git://github.com/sjl/threesome.vim.git
+[submodule "bundle/gundo"]
+	path = bundle/gundo
+	url = http://github.com/sjl/gundo.vim.git
