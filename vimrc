@@ -31,10 +31,9 @@ set ttyfast
 
 " use incremental, highlighting, smart case-insensitive search
 set incsearch
-set ignorecase
-set smartcase
-set nohlsearch " turn OFF search match highlighting...
-nohl " ...and turn it off immediately, in case reloading.
+set ignorecase smartcase
+set hlsearch " turn ON search match highlighting...
+nohl         " ...but turn it off immediately, in case reloading.
 
 " buffer control
 set switchbuf=usetab
@@ -125,6 +124,13 @@ map Y y$
 " no Ex mode, reformat instead
 map Q gq
 
+" Ack mappings
+nmap g/ :Ack! 
+nmap g* :Ack! -w <C-R><C-W> 
+nmap gn :cnext<cr>
+nmap gp :cprev<cr>
+nmap gq :ccl<cr>
+
 " open help on bottom
 cnoreabbrev h bot h
 
@@ -161,6 +167,7 @@ au BufEnter __Tag_List__ :setlocal statusline=Tag\ List
 
 " yankring
 let yankring_history_file='.yankring'
+let yankring_paste_using_g=0 " disable gp map, we use it for something else
 
 " vcscommand customization
 let VCSCommandEnableBufferSetup=1
